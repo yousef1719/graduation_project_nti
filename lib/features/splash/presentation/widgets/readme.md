@@ -1,0 +1,1 @@
+this folder contains the widgets that are used in the splash screen

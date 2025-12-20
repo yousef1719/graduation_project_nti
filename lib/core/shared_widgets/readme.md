@@ -1,0 +1,1 @@
+this folder contains all the shared widgets that are used in the app

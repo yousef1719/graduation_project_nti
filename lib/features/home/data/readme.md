@@ -1,0 +1,1 @@
+this folder contains the data that the home screen needs to display

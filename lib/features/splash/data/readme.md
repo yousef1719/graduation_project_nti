@@ -1,0 +1,1 @@
+// this folder contain the data layer of the splash feature.
