@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/helpers/validators.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
 import 'package:graduation_project_nti/features/auth/presentation/widgets/Header.dart';
-import 'package:graduation_project_nti/features/auth/presentation/widgets/Text_Fieldes.dart';
+import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   const CreatePasswordScreen({super.key});
@@ -17,13 +19,18 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: AppColors.backgroundColor,
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.arrow_back_ios_new),
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -34,9 +41,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     'Your new password must be unique from those previsoly used.',
               ),
               SizedBox(height: 32),
-              TextFieldes(
-                label: 'New Password',
-                hint: 'Enter your password',
+              CustomTextField(
+                labelText: "Password",
+                hintText: "Create a password",
                 obscureText: isVisible,
                 validator: (pass) {
                   return Validator.validatePassword(pass!);
@@ -48,15 +55,21 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     });
                   },
                   icon: Icon(
-                    isVisible ? Icons.visibility : Icons.visibility_off,
+                    isVisible
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
                   ),
+                  color: isVisible
+                      ? AppColors.primaryColor
+                      : AppColors.hintTextColor,
+                  iconSize: 20,
                 ),
                 controller: newPassword,
               ),
               SizedBox(height: 18),
-              TextFieldes(
-                label: 'Confirm Password',
-                hint: 'Re-enter your new password',
+              CustomTextField(
+                labelText: 'Confirm Password',
+                hintText: 'Re-enter your new password',
                 obscureText: isVisible,
                 validator: (pass) {
                   return Validator.validatePassword(pass!);
@@ -68,31 +81,20 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     });
                   },
                   icon: Icon(
-                    isVisible ? Icons.visibility : Icons.visibility_off,
+                    isVisible
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
                   ),
+                  color: isVisible
+                      ? AppColors.primaryColor
+                      : AppColors.hintTextColor,
+                  iconSize: 20,
                 ),
-                controller: confirmPassword,
+                controller: newPassword,
               ),
               Card(),
               SizedBox(height: 76),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: Color(0xffEC3713),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                ),
-                child: Text(
-                  ('Reset Password'),
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              CustomElevatedButton(onPressed: () {}, text: 'Reset Password'),
             ],
           ),
         ),

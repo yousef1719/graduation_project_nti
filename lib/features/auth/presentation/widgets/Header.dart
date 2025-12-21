@@ -1,4 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
+import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key, required this.title, required this.subtitle});
@@ -10,17 +14,18 @@ class Header extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+        CustomText(
+          text: title,
+          fontSize: 25,
+          color: AppColors.textColor,
+          fontWeight: FontWeight.w700,
         ),
-        Text(
-          subtitle,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: Color(0xff64748B),
-          ),
+        const SizedBox(height: 10),
+        CustomText(
+          text: subtitle,
+          fontSize: 14,
+          color: AppColors.hintTextColor,
+          fontWeight: FontWeight.w400,
         ),
       ],
     );

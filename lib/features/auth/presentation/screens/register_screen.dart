@@ -2,7 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_TextFormField.dart';
+import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:graduation_project_nti/core/constants/app_images.dart';
+import 'package:graduation_project_nti/core/helpers/validators.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -30,14 +35,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: AppColors.backgroundColor,
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: Color(0XFF171717),
-          ),
+          icon: Icon(Icons.arrow_back_ios_new, color: AppColors.textColor),
         ),
       ),
       body: SafeArea(
@@ -51,28 +56,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Create Account',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
+                CustomText(
+                  text: 'Create Account',
+                  fontSize: 32,
+                  color: AppColors.textColor,
                 ),
-                Text(
-                  'Sign up to discover exclusive accessories.',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff737373),
-                  ),
+                CustomText(
+                  text: 'Sign up to discover exclusive accessories.',
+                  fontSize: 14,
+                  color: AppColors.hintTextColor,
+                  fontWeight: FontWeight.w400,
                 ),
                 SizedBox(height: 30),
                 CustomTextField(
                   labelText: "Full Name",
                   hintText: "Enter your full name",
+                  validator: (pass) {
+                    return Validator.validateUserName(pass!);
+                  },
                   controller: fullNameController,
                 ),
                 SizedBox(height: 10),
                 CustomTextField(
                   labelText: "Email Address",
                   hintText: "name@example.com",
+                  validator: (pass) {
+                    return Validator.validateEmail(pass!);
+                  },
                   controller: emailController,
                 ),
                 SizedBox(height: 10),
@@ -80,6 +90,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   labelText: "Password",
                   hintText: "Create a password",
                   obscureText: isActive,
+                  validator: (pass) {
+                    return Validator.validatePassword(pass!);
+                  },
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
@@ -91,7 +104,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
                     ),
-                    color: Color(0xff9A594C),
+                    color: isActive
+                        ? AppColors.primaryColor
+                        : AppColors.hintTextColor,
                     iconSize: 20,
                   ),
                   controller: passwordController,
@@ -112,47 +127,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     Expanded(
-                      child: Text(
-                        'I agree to the Terms & Conditions and Privacy Policy',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff525252),
-                        ),
+                      child: CustomText(
+                        text:
+                            'I agree to the Terms & Conditions and Privacy Policy.',
+                        fontSize: 12,
+                        color: AppColors.hintTextColor,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xffEC3713),
-                    minimumSize: Size(double.infinity, 56),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(8),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Register',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+                CustomElevatedButton(onPressed: () {}, text: 'Register'),
                 SizedBox(height: 20),
                 Row(
                   children: [
                     Expanded(child: Divider(thickness: 1)),
-                    Text(
-                      '  Or sign up with  ',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff737373),
-                      ),
+                    CustomText(
+                      text: '   Or sign up with   ',
+                      fontSize: 14,
+                      color: AppColors.hintTextColor,
                     ),
                     Expanded(child: Divider(thickness: 1)),
                   ],
@@ -164,26 +157,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: OutlinedButton.icon(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          side: BorderSide(color: Colors.grey),
+                          backgroundColor: AppColors.backgroundColor,
+                          side: BorderSide(color: AppColors.hintTextColor),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                           padding: EdgeInsets.symmetric(horizontal: 12),
                           minimumSize: Size(double.infinity, 48),
                         ),
-                        icon: SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: SvgPicture.asset('assets/icons/google.svg'),
-                        ),
-                        label: Text(
-                          'Google',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        icon: SvgPicture.asset(AppImages.googleLogo, width: 20),
+                        label: CustomText(
+                          text: 'Google',
+                          fontSize: 14,
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
@@ -192,26 +179,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: OutlinedButton.icon(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          side: BorderSide(color: Colors.grey),
+                          backgroundColor: AppColors.backgroundColor,
+                          side: BorderSide(color: AppColors.hintTextColor),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                           padding: EdgeInsets.symmetric(horizontal: 12),
                           minimumSize: Size(double.infinity, 48),
                         ),
-                        icon: SizedBox(
+                        icon: SvgPicture.asset(
+                          AppImages.facbookLogo,
                           width: 20,
-                          height: 20,
-                          child: SvgPicture.asset('assets/icons/facebook.svg'),
                         ),
-                        label: Text(
-                          'Facebook',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        label: CustomText(
+                          text: 'Facebook',
+                          fontSize: 14,
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
@@ -221,23 +205,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Already have an account?',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff525252),
-                      ),
+                    CustomText(
+                      text: 'Already have an account?',
+                      fontSize: 14,
+                      color: AppColors.hintTextColor,
                     ),
                     TextButton(
                       onPressed: () {},
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0XFFEC3713),
-                        ),
+                      child: CustomText(
+                        text: 'Login',
+                        fontSize: 14,
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ],

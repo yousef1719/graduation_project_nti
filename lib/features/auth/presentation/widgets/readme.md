@@ -1,1 +1,0 @@
-this folder contains all the widgets that are used in the auth feature
