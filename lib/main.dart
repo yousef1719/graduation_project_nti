@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_nti/features/profile/presentation/screens/change_pssword_screen.dart';
 import 'package:graduation_project_nti/features/splash/presentation/screens/splash_screen.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class GraduationProjectNti extends StatelessWidget {
           bodyMedium: TextStyle(fontFamily: 'Playfair'),
         ),
       ),
-      home: SplashScreen(),
+      home: ChangePasswordScreen(),
     );
   }
 }
