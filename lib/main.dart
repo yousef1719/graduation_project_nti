@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/features/profile/presentation/screens/change_pssword_screen.dart';
 import 'package:graduation_project_nti/features/splash/presentation/screens/splash_screen.dart';
 
 void main() {
@@ -13,13 +12,13 @@ class GraduationProjectNti extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Graduation Project NTI 3',
+      title: 'Graduation Project NTI',
       theme: ThemeData(
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontFamily: 'Playfair'),
         ),
       ),
-      home: ChangePasswordScreen(),
+      home: SplashScreen(),
     );
   }
 }
