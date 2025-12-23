@@ -13,7 +13,7 @@ class GraduationProjectNti extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Graduation Project NTI',
+      title: 'Graduation Project NTI 3',
       theme: ThemeData(
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontFamily: 'Playfair'),
