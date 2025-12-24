@@ -3,6 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_TextFormField.dart';
+import 'package:graduation_project_nti/core/helpers/validators.dart';
+import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_TextFormField.dart';
+import 'login_screen.dart';
+
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -230,7 +234,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));},
                       child: Text(
                         'Login',
                         style: TextStyle(
