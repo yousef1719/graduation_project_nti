@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'register_screen.dart'; // تأكد إن ده اسم الملف الصحيح
+import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:graduation_project_nti/core/constants/app_images.dart';
+import 'package:graduation_project_nti/core/helpers/validators.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_app_bar.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_outlined_button.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';
+import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,203 +18,142 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _isObscured = true;
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  bool isActive = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
+      backgroundColor: AppColors.backgroundColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: CustomAppBar(
+          onPressedLeading: () {
             Navigator.pop(context);
           },
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
-              const Text(
-                'Welcome Back',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+              CustomText(
+                text: 'Welcome Back',
+                fontSize: 32,
+                color: AppColors.textColor,
+                fontWeight: FontWeight.w500,
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Log in to discover the latest trends in accessories.',
-                style: TextStyle(fontSize: 16, color: Colors.grey, height: 1.5),
-              ),
-              const SizedBox(height: 32),
-
-              // --- Email ---
-              const Text(
-                'Email',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'hello@example.com',
-                  hintStyle: TextStyle(color: Colors.grey[400]),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey[300]!),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Color(0xFFFF3D00)),
-                  ),
-                ),
+              CustomText(
+                text: 'Log in to discover the latest trends in accessories.',
+                fontSize: 14,
+                color: AppColors.hintTextColor,
               ),
               const SizedBox(height: 20),
-
-              // --- Password ---
-              const Text(
-                'Password',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+              CustomTextField(
+                labelText: "Email Address",
+                hintText: "name@example.com",
+                validator: (pass) {
+                  return Validator.validateEmail(pass!);
+                },
+                controller: emailController,
               ),
-              const SizedBox(height: 8),
-              TextFormField(
-                obscureText: _isObscured,
-                decoration: InputDecoration(
-                  hintText: '••••••••',
-                  hintStyle: TextStyle(color: Colors.grey[400], letterSpacing: 2),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isObscured ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _isObscured = !_isObscured;
-                      });
-                    },
+              const SizedBox(height: 20),
+              CustomTextField(
+                labelText: "Password",
+                hintText: "Create a password",
+                obscureText: isActive,
+                validator: (pass) {
+                  return Validator.validatePassword(pass!);
+                },
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isActive = !isActive;
+                    });
+                  },
+                  icon: Icon(
+                    isActive
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
                   ),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey[300]!),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Color(0xFFFF3D00)),
-                  ),
+                  color: isActive
+                      ? AppColors.primaryColor
+                      : AppColors.hintTextColor,
+                  iconSize: 20,
                 ),
+                controller: passwordController,
               ),
 
-              // --- Forgot Password ---
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text(
-                    'Forgot Password?',
-                    style: TextStyle(color: Color(0xFFFF3D00), fontWeight: FontWeight.w600),
+                  child: CustomText(
+                    text: 'Forgot Password?',
+                    fontSize: 12,
+                    color: AppColors.primaryColor,
                   ),
                 ),
               ),
               const SizedBox(height: 20),
-
-              // --- Log In Button ---
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Login Logic Here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFF3D00),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    elevation: 2,
-                  ),
-                  child: const Text(
-                    'Log In',
-                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
+              CustomElevatedButton(onPressed: () {}, text: 'Login'),
               const SizedBox(height: 30),
-
-              // --- Divider ---
               Row(
                 children: [
-                  Expanded(child: Divider(color: Colors.grey[300])),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text('Or continue with', style: TextStyle(color: Colors.grey[500])),
+                  Expanded(child: Divider(thickness: 1)),
+                  CustomText(
+                    text: '   Or sign in with   ',
+                    fontSize: 14,
+                    color: AppColors.hintTextColor,
                   ),
-                  Expanded(child: Divider(color: Colors.grey[300])),
+                  Expanded(child: Divider(thickness: 1)),
                 ],
               ),
               const SizedBox(height: 30),
-
-              // --- Social Buttons (تم التصحيح هنا) ---
               Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        side: const BorderSide(color: Colors.grey),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                      ),
-                      icon: SvgPicture.asset('assets/icons/google.svg', width: 24, height: 24),
-                      label: const Text(
-                        'Google',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                      ),
+                    child: CustomOutlinedButton(
+                      text: 'Google',
+                      image: AppImages.googleLogo,
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 10),
                   Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        side: const BorderSide(color: Colors.grey),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                      ),
-                      icon: SvgPicture.asset('assets/icons/facebook.svg', width: 24, height: 24),
-                      label: const Text(
-                        'Facebook',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                      ),
+                    child: CustomOutlinedButton(
+                      text: 'Facebook',
+                      image: AppImages.facbookLogo,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
-
-              // --- Sign Up Link ---
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account? ", style: TextStyle(color: Colors.grey[600])),
-                  GestureDetector(
-                    onTap: () {
+                  CustomText(
+                    text: 'Don\'t have an account? ',
+                    fontSize: 14,
+                    color: AppColors.hintTextColor,
+                  ),
+                  TextButton(
+                    onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreen(),
+                        ),
                       );
                     },
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(color: Color(0xFFFF3D00), fontWeight: FontWeight.bold),
+                    child: CustomText(
+                      text: 'Sign Up',
+                      fontSize: 14,
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
