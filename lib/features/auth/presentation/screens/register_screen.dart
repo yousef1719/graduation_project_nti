@@ -7,7 +7,9 @@ import 'package:graduation_project_nti/core/constants/app_images.dart';
 import 'package:graduation_project_nti/core/helpers/validators.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_app_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_outlined_button.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/auth/presentation/screens/login_screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -60,6 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   text: 'Create Account',
                   fontSize: 32,
                   color: AppColors.textColor,
+                  fontWeight: FontWeight.w500,
                 ),
                 CustomText(
                   text: 'Sign up to discover exclusive accessories.',
@@ -154,49 +157,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Row(
                   children: [
                     Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: AppColors.backgroundColor,
-                          side: BorderSide(color: AppColors.hintTextColor),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          minimumSize: Size(double.infinity, 48),
-                        ),
-                        icon: SvgPicture.asset(AppImages.googleLogo, width: 20),
-                        label: CustomText(
-                          text: 'Google',
-                          fontSize: 14,
-                          color: AppColors.textColor,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      child: CustomOutlinedButton(
+                        text: 'Google',
+                        image: AppImages.googleLogo,
                       ),
                     ),
                     SizedBox(width: 10),
                     Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: AppColors.backgroundColor,
-                          side: BorderSide(color: AppColors.hintTextColor),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          minimumSize: Size(double.infinity, 48),
-                        ),
-                        icon: SvgPicture.asset(
-                          AppImages.facbookLogo,
-                          width: 20,
-                        ),
-                        label: CustomText(
-                          text: 'Facebook',
-                          fontSize: 14,
-                          color: AppColors.textColor,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      child: CustomOutlinedButton(
+                        text: 'Facebook',
+                        image: AppImages.facbookLogo,
                       ),
                     ),
                   ],
@@ -211,7 +181,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: AppColors.hintTextColor,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ),
+                        );
+                      },
                       child: CustomText(
                         text: 'Login',
                         fontSize: 14,
