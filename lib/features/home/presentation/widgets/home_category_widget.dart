@@ -20,7 +20,7 @@ class _HomeCategoryWidgetState extends State<HomeCategoryWidget> {
     CategoryModel(name: 'Eye Wear', image: 'assets/images/test/eye_wear.png'),
     CategoryModel(name: 'Watches', image: 'assets/images/test/watches.png'),
   ];
-  int isSeleceted = 1;
+  int isSeleceted = 0;
 
   @override
   Widget build(BuildContext context) {
