@@ -1,1 +1,0 @@
-// this folder contains home screen and its components

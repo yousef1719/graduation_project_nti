@@ -28,17 +28,16 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  carousel_slider: ^5.1.1
   cupertino_icons: ^1.0.8
+  cupertino_native: ^0.1.1
+  floating_draggable_widget: ^2.3.0
   flutter:
     sdk: flutter
   flutter_svg: ^2.2.3
+  liquid_glass_navbar: ^1.0.4
 
 dev_dependencies:
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
@@ -57,7 +56,7 @@ flutter:
     - assets/images/
     - assets/images/svgicons/
     - assets/images/background/
-    
+    - assets/images/test/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -82,6 +81,5 @@ flutter:
       fonts:
         - asset: assets/fonts/Playfair_144pt-ExtraBold.ttf
         - weight: 800
-        
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

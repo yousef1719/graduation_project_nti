@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
-import 'package:graduation_project_nti/core/constants/app_images.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class CustomOutlinedButton extends StatelessWidget {

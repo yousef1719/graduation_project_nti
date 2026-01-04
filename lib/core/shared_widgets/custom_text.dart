@@ -8,23 +8,31 @@ class CustomText extends StatelessWidget {
     required this.color,
     this.fontWeight,
     this.textAlign,
+    this.overflow,
+    this.fontFamily,
+    this.maxLines,
   });
   final String text;
   final double fontSize;
   final Color color;
   final FontWeight? fontWeight;
   final TextAlign? textAlign;
+  final TextOverflow? overflow;
+  final int? maxLines;
+  final String? fontFamily;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: textAlign,
+      overflow: overflow,
+      maxLines: maxLines,
       style: TextStyle(
         fontSize: fontSize,
         color: color,
         fontWeight: fontWeight,
-        fontFamily: 'PlusJakartaSans',
+        fontFamily: fontFamily ?? 'PlusJakartaSans',
       ),
     );
   }
