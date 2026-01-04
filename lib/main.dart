@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/features/splash/presentation/screens/splash_screen.dart';
+import 'package:graduation_project_nti/root.dart';
 
 void main() {
   runApp(const GraduationProjectNti());
@@ -15,10 +15,10 @@ class GraduationProjectNti extends StatelessWidget {
       title: 'Graduation Project NTI',
       theme: ThemeData(
         textTheme: const TextTheme(
-          bodyMedium: TextStyle(fontFamily: 'Playfair'),
+          bodyMedium: TextStyle(fontFamily: 'PlusJakartaSans'),
         ),
       ),
-      home: SplashScreen(),
+      home: Root(),
     );
   }
 }

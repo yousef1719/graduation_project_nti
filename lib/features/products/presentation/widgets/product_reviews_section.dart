@@ -1,0 +1,80 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter/cupertino.dart';
+import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+
+class ProductReviewsSection extends StatelessWidget {
+  const ProductReviewsSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomText(
+              text: 'Reviews',
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textColor,
+            ),
+            CustomText(
+              text: 'See All',
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: AppColors.primaryColor,
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        Container(
+          padding: EdgeInsets.all(17),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: AppColors.hintTextColor.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    CupertinoIcons.person_circle,
+                    color: AppColors.textColor,
+                    size: 30,
+                  ),
+                  SizedBox(width: 6),
+                  CustomText(
+                    text: 'John Doe',
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textColor,
+                  ),
+                  Spacer(),
+                  CustomText(
+                    text: '2 day ago',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.hintTextColor,
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              CustomText(
+                text:
+                    'Absolutely love the quality! The leather feels so soft and the stitching is perfect. It fits my phone and wallet perfectly.',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: AppColors.hintTextColor,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+      ],
+    );
+  }
+}

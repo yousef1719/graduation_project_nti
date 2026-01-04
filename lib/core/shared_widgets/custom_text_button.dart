@@ -8,18 +8,27 @@ class CustomTextButton extends StatelessWidget {
     required this.text,
     required this.fontSize,
     required this.color,
+    this.style,
+    this.fontWeight,
   });
   final void Function()? onPressed;
   final String text;
   final double fontSize;
   final Color color;
+  final FontWeight? fontWeight;
+  final ButtonStyle? style;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-
-      child: CustomText(text: text, fontSize: fontSize, color: color),
+      style: style,
+      child: CustomText(
+        text: text,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
+      ),
     );
   }
 }
