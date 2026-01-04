@@ -16,9 +16,9 @@ class _ProductColorsSelectorSectionState
   int selectedIndex = 0;
 
   final List<ColorVariant> variants = [
-    ColorVariant(name: 'Brown', color: Color(0xff8B4513)),
-    ColorVariant(name: 'Black', color: Colors.black),
-    ColorVariant(name: 'Beige', color: Color(0xffE5D0B1)),
+    ColorVariant(color: Color(0xff8B4513)),
+    ColorVariant(color: Colors.black),
+    ColorVariant(color: Color(0xffE5D0B1)),
   ];
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _ProductColorsSelectorSectionState
                 });
               },
               child: Tooltip(
-                message: variant.name,
+                message: 'Color',
                 child: Container(
                   margin: const EdgeInsets.only(right: 3),
                   width: 40,

@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/products/presentation/widgets/custom_rating_widget.dart';
 
 class ProductReviewsSection extends StatelessWidget {
   const ProductReviewsSection({super.key});
@@ -38,6 +39,7 @@ class ProductReviewsSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -62,7 +64,9 @@ class ProductReviewsSection extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 6),
+              CustomRatingWidget(),
+              SizedBox(height: 8),
               CustomText(
                 text:
                     'Absolutely love the quality! The leather feels so soft and the stitching is perfect. It fits my phone and wallet perfectly.',
