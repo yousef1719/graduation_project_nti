@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_nti/features/products/presentation/screens/add_new_product.dart';
 import 'package:graduation_project_nti/root.dart';
 
 void main() {
@@ -18,7 +19,8 @@ class GraduationProjectNti extends StatelessWidget {
           bodyMedium: TextStyle(fontFamily: 'PlusJakartaSans'),
         ),
       ),
-      home: Root(),
+      home: AddNewProduct(),
+      // Root(),
     );
   }
 }
