@@ -19,8 +19,9 @@ class GraduationProjectNti extends StatelessWidget {
           bodyMedium: TextStyle(fontFamily: 'PlusJakartaSans'),
         ),
       ),
-      home: AddNewProduct(),
-      // Root(),
+      home:
+          // AddNewProduct(),
+          Root(),
     );
   }
 }
