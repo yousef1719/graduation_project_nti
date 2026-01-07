@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/features/home/presentation/screens/home_screen.dart';
 import 'package:graduation_project_nti/features/products/presentation/screens/product_screen.dart';
+import 'package:graduation_project_nti/features/profile/presentation/screens/profile_screen.dart';
 import 'package:liquid_glass_navbar/liquid_glass_navbar.dart';
 
 class Root extends StatefulWidget {
@@ -19,7 +20,7 @@ class _RootState extends State<Root> {
     HomeScreen(),
     ProductScreen(),
     HomeScreen(),
-    HomeScreen(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
