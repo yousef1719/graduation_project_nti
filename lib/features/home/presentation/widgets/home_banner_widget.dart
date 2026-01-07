@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button_with_icon.dart';
@@ -67,7 +68,13 @@ class HomeBannerWidget extends StatelessWidget {
                     color: AppColors.backgroundColor,
                   ),
                   const SizedBox(height: 10),
-                  CustomElevatedButtonWithIcon(),
+                  CustomElevatedButtonWithIcon(
+                    text: 'Explore more',
+                    icon: CupertinoIcons.arrow_right,
+                    textColor: AppColors.textColor,
+                    iconColor: AppColors.textColor,
+                    onPressed: () {},
+                  ),
                 ],
               ),
             ),
