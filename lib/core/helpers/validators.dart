@@ -1,6 +1,5 @@
 // validators.dart
 
-
 import 'string_manager.dart';
 
 class Validator {

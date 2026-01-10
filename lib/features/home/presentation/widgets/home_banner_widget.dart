@@ -3,93 +3,103 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
-import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button_with_icon.dart';
-import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
-import 'package:graduation_project_nti/core/shared_widgets/custom_text_button.dart';
+import 'package:graduation_project_nti/features/home/data/models/offer_banner_model.dart';
+import 'package:graduation_project_nti/features/home/data/repositories/offer_repository.dart';
 
-class HomeBannerWidget extends StatelessWidget {
+class HomeBannerWidget extends StatefulWidget {
   const HomeBannerWidget({super.key});
 
   @override
+  State<HomeBannerWidget> createState() => _HomeBannerWidgetState();
+}
+
+class _HomeBannerWidgetState extends State<HomeBannerWidget> {
+  final OffersRepository repository = OffersRepository();
+  final List<OfferBannerModel> offers = [];
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
+
+  int page = 1;
+  final int pageSize = 5;
+  bool isLoading = false;
+  bool hasNextPage = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchOffers();
+  }
+
+  Future<void> fetchOffers() async {
+    if (isLoading || !hasNextPage) return;
+    setState(() => isLoading = true);
+
+    final newOffers = await repository.fetchOffers(
+      page: page,
+      pageSize: pageSize,
+    );
+
+    setState(() {
+      offers.addAll(newOffers);
+      page++;
+      isLoading = false;
+      hasNextPage = newOffers.length == pageSize;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double bannerHeight = screenHeight * 0.22;
+    bannerHeight = bannerHeight.clamp(160.0, 220.0);
+
+    if (offers.isEmpty && isLoading) {
+      return SizedBox(
+        height: bannerHeight,
+        child: const Center(child: CupertinoActivityIndicator()),
+      );
+    }
     return CarouselSlider.builder(
-      itemCount: 3,
-      itemBuilder: (context, int itemindex, int pageViewIndex) => Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: Image.asset('assets/images/test/test_banner.png'),
-          ),
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [Colors.black.withOpacity(0.5), Colors.transparent],
-                ),
-              ),
+      carouselController: _carouselController,
+      itemCount: offers.length,
+      itemBuilder: (context, int itemindex, int pageViewIndex) {
+        final offer = offers[itemindex];
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              offer.coverUrl,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+              loadingBuilder: (context, child, progress) {
+                if (progress == null) return child;
+                return const Center(child: CupertinoActivityIndicator());
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return const Center(child: Icon(Icons.error));
+              },
             ),
           ),
-          Positioned(
-            top: 5,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomTextButton(
-                    text: 'Summer Sale',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.backgroundColor,
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size(90, 25),
-                      backgroundColor: AppColors.primaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  CustomText(
-                    text: 'Up to 50% Off',
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.backgroundColor,
-                  ),
-                  CustomText(
-                    text: 'Premium accessories for the season.',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                    color: AppColors.backgroundColor,
-                  ),
-                  const SizedBox(height: 10),
-                  CustomElevatedButtonWithIcon(
-                    text: 'Explore more',
-                    icon: CupertinoIcons.arrow_right,
-                    textColor: AppColors.textColor,
-                    iconColor: AppColors.textColor,
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
       options: CarouselOptions(
-        height: height * 0.27,
-        viewportFraction: 0.9,
-        aspectRatio: 1,
+        height: bannerHeight,
+        initialPage: 0,
+        viewportFraction: 0.92,
+        aspectRatio: 16 / 9,
         autoPlay: true,
-        autoPlayAnimationDuration: Duration(seconds: 5),
-        autoPlayInterval: Duration(seconds: 10),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+        autoPlayInterval: const Duration(seconds: 5),
         enlargeCenterPage: true,
+        enlargeFactor: 0.16,
         autoPlayCurve: Curves.fastOutSlowIn,
+        onPageChanged: (index, reason) {
+          if (index >= offers.length - 2) {
+            fetchOffers();
+          }
+        },
       ),
     );
   }
