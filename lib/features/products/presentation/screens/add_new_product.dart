@@ -27,13 +27,15 @@ class _AddNewProductState extends State<AddNewProduct> {
           title: 'Add New Product',
           centerTitle: true,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: const Icon(Icons.arrow_back),
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -19,7 +19,7 @@ class _RootState extends State<Root> {
   final List<Widget> _screens = const [
     HomeScreen(),
     ProductScreen(),
-    HomeScreen(),
+    Center(child: Text('Cart', style: TextStyle(fontSize: 20))),
     ProfileScreen(),
   ];
   @override

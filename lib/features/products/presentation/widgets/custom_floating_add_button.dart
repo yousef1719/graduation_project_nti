@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:graduation_project_nti/features/products/presentation/screens/add_new_product.dart';
 
 class CustomFloatingAddButton extends StatelessWidget {
   const CustomFloatingAddButton({super.key});
@@ -13,9 +14,10 @@ class CustomFloatingAddButton extends StatelessWidget {
       child: InkWell(
         customBorder: const CircleBorder(),
         onTap: () {
-          // Navigator.push(context, MaterialPageRoute(
-          //   builder: (_) => AddProductScreen(),
-          // ));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => AddNewProduct()),
+          );
         },
         child: const SizedBox(
           width: 40,

@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
@@ -22,6 +23,24 @@ class _HomeCategoryWidgetState extends State<HomeCategoryWidget> {
   ];
   int isSeleceted = 0;
 
+  // final Dio dio = Dio();
+  // List<CategoryModel> categories = [];
+  // Future<void> getCategories() async {
+  //   Response response = await dio.get(
+  //     'https://accessories-eshop.runasp.net/api/categories',
+  //   );
+
+  //   final List categoryList = response.data[0]['categories'] as List;
+  //   setState(() {
+  //     categories = categoryList.map((e) => CategoryModel.fromJson(e)).toList();
+  //   });
+  // }
+
+  @override
+  // void initState() {
+  //   super.initState();
+  //   getCategories();
+  // }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,6 +61,7 @@ class _HomeCategoryWidgetState extends State<HomeCategoryWidget> {
               scrollDirection: Axis.horizontal,
               itemCount: items.length,
               itemBuilder: (context, index) {
+                // final category = categories[index];
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: Column(
