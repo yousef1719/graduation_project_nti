@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:graduation_project_nti/features/cart/presentation/screens/cart_screen.dart';
 import 'package:graduation_project_nti/features/home/presentation/screens/home_screen.dart';
 import 'package:graduation_project_nti/features/products/presentation/screens/product_screen.dart';
 import 'package:liquid_glass_navbar/liquid_glass_navbar.dart';
@@ -18,7 +19,7 @@ class _RootState extends State<Root> {
   final List<Widget> _screens = const [
     HomeScreen(),
     ProductScreen(),
-    HomeScreen(),
+    CartScreen(),
     HomeScreen(),
   ];
   @override
