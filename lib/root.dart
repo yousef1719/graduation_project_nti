@@ -5,6 +5,7 @@ import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/features/cart/presentation/screens/cart_screen.dart';
 import 'package:graduation_project_nti/features/home/presentation/screens/home_screen.dart';
 import 'package:graduation_project_nti/features/products/presentation/screens/product_screen.dart';
+import 'package:graduation_project_nti/features/profile/presentation/screens/profile_screen.dart';
 import 'package:liquid_glass_navbar/liquid_glass_navbar.dart';
 
 class Root extends StatefulWidget {
