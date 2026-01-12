@@ -8,8 +8,8 @@ import 'package:graduation_project_nti/core/shared_widgets/custom_app_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_snack_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
-import 'package:graduation_project_nti/features/auth/data/auth_repo.dart';
-import 'package:graduation_project_nti/features/auth/data/verification_model.dart';
+import 'package:graduation_project_nti/features/auth/data/repo/auth_repo.dart';
+import 'package:graduation_project_nti/features/auth/data/models/verification_model.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerificationScreen extends StatefulWidget {

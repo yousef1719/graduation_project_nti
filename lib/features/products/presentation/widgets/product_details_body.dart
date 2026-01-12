@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 import 'package:graduation_project_nti/features/products/presentation/widgets/product_colors_selector_section.dart';
 import 'package:graduation_project_nti/features/products/presentation/widgets/product_description_section.dart';
 import 'package:graduation_project_nti/features/products/presentation/widgets/product_details_title_section.dart';
@@ -8,7 +9,9 @@ import 'package:graduation_project_nti/features/products/presentation/widgets/pr
 import 'package:graduation_project_nti/features/products/presentation/widgets/product_reviews_section.dart';
 
 class ProductDetailsBody extends StatefulWidget {
-  const ProductDetailsBody({super.key});
+  final ProductModel product;
+
+  const ProductDetailsBody({super.key, required this.product});
 
   @override
   State<ProductDetailsBody> createState() => _ProductDetailsBodyState();
@@ -25,11 +28,11 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProductDetailsTitleSection(),
+              ProductDetailsTitleSection(product: widget.product),
               ProductColorsSelectorSection(),
-              ProductDescriptionSection(),
-              ProductMoreDetails(),
-              ProductReviewsSection(),
+              ProductDescriptionSection(product: widget.product),
+              ProductMoreDetails(product: widget.product),
+              ProductReviewsSection(product: widget.product),
             ],
           ),
         ),

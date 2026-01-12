@@ -4,9 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 
 class CustomBottomActionBar extends StatelessWidget {
-  const CustomBottomActionBar({super.key});
+  final ProductModel product;
+
+  const CustomBottomActionBar({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {

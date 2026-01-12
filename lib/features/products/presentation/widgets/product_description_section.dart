@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 
 class ProductDescriptionSection extends StatelessWidget {
-  const ProductDescriptionSection({super.key});
+  final ProductModel product;
+
+  const ProductDescriptionSection({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,7 @@ class ProductDescriptionSection extends StatelessWidget {
         ),
         SizedBox(height: 10),
         CustomText(
-          text:
-              'Handcrafted from premium Italian leather, this crossbody bag features a timeless silhouette perfect for everyday wear. Includes an adjustable strap and multiple interior compartments for organization.',
+          text: product.description,
           fontSize: 14,
           maxLines: 5,
           overflow: TextOverflow.ellipsis,
