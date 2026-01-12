@@ -47,6 +47,7 @@ class _CartScreenState extends State<CartScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: CustomAppBar(
+          leading: SizedBox.shrink(),
           title: 'My Cart (${cartItems.length})',
           centerTitle: true,
         ),
@@ -80,7 +81,6 @@ class _CartScreenState extends State<CartScreen> {
                     },
                   );
                 }
-
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -98,9 +98,9 @@ class _CartScreenState extends State<CartScreen> {
               },
             ),
           ),
-          CheckoutButton(total: total),
         ],
       ),
+      bottomNavigationBar: CheckoutButton(total: total),
     );
   }
 }

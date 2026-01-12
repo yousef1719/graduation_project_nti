@@ -12,7 +12,7 @@ import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_butto
 import 'package:graduation_project_nti/core/shared_widgets/custom_outlined_button.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_snack_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
-import 'package:graduation_project_nti/features/auth/data/auth_repo.dart';
+import 'package:graduation_project_nti/features/auth/data/repo/auth_repo.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/login_screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/verification_screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';

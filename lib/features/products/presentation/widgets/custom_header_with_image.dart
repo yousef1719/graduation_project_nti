@@ -3,9 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 
 class CustomHeaderWithImage extends StatelessWidget {
-  const CustomHeaderWithImage({super.key});
+  final ProductModel product;
+
+  const CustomHeaderWithImage({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +25,19 @@ class CustomHeaderWithImage extends StatelessWidget {
           return Stack(
             children: [
               Positioned.fill(
-                child: Image.asset(
-                  'assets/images/test/test1.png',
+                child: Image.network(
+                  product.coverPictureUrl,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[300],
+                      child: const Icon(
+                        Icons.image,
+                        size: 100,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
                 ),
               ),
               Positioned(

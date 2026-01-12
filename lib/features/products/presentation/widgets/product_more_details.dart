@@ -2,9 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 
 class ProductMoreDetails extends StatelessWidget {
-  const ProductMoreDetails({super.key});
+  final ProductModel product;
+
+  const ProductMoreDetails({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +25,13 @@ class ProductMoreDetails extends StatelessWidget {
               Expanded(
                 child: ListTile(
                   title: CustomText(
-                    text: 'Material',
+                    text: 'Color',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: AppColors.hintTextColor,
                   ),
                   subtitle: CustomText(
-                    text: 'Genuine Leather',
+                    text: product.color,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     fontSize: 14,
@@ -40,13 +43,13 @@ class ProductMoreDetails extends StatelessWidget {
               Expanded(
                 child: ListTile(
                   title: CustomText(
-                    text: 'Style',
+                    text: 'Stock',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: AppColors.hintTextColor,
                   ),
                   subtitle: CustomText(
-                    text: 'Casual / Chic',
+                    text: '${product.stock} items',
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColors.textColor,
@@ -66,7 +69,7 @@ class ProductMoreDetails extends StatelessWidget {
                     color: AppColors.hintTextColor,
                   ),
                   subtitle: CustomText(
-                    text: '0.45 kg',
+                    text: '${product.weight} kg',
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColors.textColor,
@@ -76,13 +79,13 @@ class ProductMoreDetails extends StatelessWidget {
               Expanded(
                 child: ListTile(
                   title: CustomText(
-                    text: 'Warranty',
+                    text: 'Code',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: AppColors.hintTextColor,
                   ),
                   subtitle: CustomText(
-                    text: '2 years',
+                    text: product.productCode,
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColors.textColor,
