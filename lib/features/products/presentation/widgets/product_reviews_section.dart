@@ -3,10 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 import 'package:graduation_project_nti/features/products/presentation/widgets/custom_rating_widget.dart';
 
 class ProductReviewsSection extends StatelessWidget {
-  const ProductReviewsSection({super.key});
+  final ProductModel product;
+
+  const ProductReviewsSection({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class ProductReviewsSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomText(
-              text: 'Reviews',
+              text: 'Reviews (${product.reviewsCount})',
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: AppColors.textColor,

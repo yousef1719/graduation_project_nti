@@ -3,8 +3,8 @@ import 'package:graduation_project_nti/core/helpers/pref_helper.dart';
 import 'package:graduation_project_nti/core/network/api_error.dart';
 import 'package:graduation_project_nti/core/network/api_exception.dart';
 import 'package:graduation_project_nti/core/network/api_service.dart';
-import 'package:graduation_project_nti/features/auth/data/login_model.dart';
-import 'package:graduation_project_nti/features/auth/data/verification_model.dart';
+import 'package:graduation_project_nti/features/auth/data/models/login_model.dart';
+import 'package:graduation_project_nti/features/auth/data/models/verification_model.dart';
 
 class AuthRepo {
   ApiService apiService = ApiService();
