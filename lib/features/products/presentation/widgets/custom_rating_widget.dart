@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:graduation_project_nti/core/constants/app_colors.dart';
 
 class CustomRatingWidget extends StatefulWidget {
-  const CustomRatingWidget({super.key});
+  const CustomRatingWidget({super.key, required double rating});
 
   @override
   State<CustomRatingWidget> createState() => _CustomRatingWidgetState();

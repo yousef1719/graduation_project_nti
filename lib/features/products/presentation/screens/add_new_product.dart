@@ -20,7 +20,7 @@ class _AddNewProductState extends State<AddNewProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: CustomAppBar(
@@ -43,13 +43,13 @@ class _AddNewProductState extends State<AddNewProduct> {
               CustomText(
                 text: "Product Images",
                 fontSize: 14,
-                color: Colors.black,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
               SizedBox(height: 100),
               CustomText(
                 text: "Add up to 5 images. First image is the cover.",
                 fontSize: 12,
-                color: Colors.grey,
+                color: Theme.of(context).textTheme.bodySmall?.color,
               ),
               SizedBox(height: 20),
               CustomTextField(
@@ -88,8 +88,7 @@ class _AddNewProductState extends State<AddNewProduct> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: Theme.of(context).dividerColor),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -102,7 +101,7 @@ class _AddNewProductState extends State<AddNewProduct> {
                           CustomText(
                             text: "In Stock",
                             fontSize: 15,
-                            color: Colors.black,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -117,8 +116,8 @@ class _AddNewProductState extends State<AddNewProduct> {
                               padding: const EdgeInsets.all(3),
                               decoration: BoxDecoration(
                                 color: inStock
-                                    ? Colors.red
-                                    : Colors.grey.shade400,
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context).dividerColor,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: AnimatedAlign(
@@ -139,14 +138,18 @@ class _AddNewProductState extends State<AddNewProduct> {
                           ),
                         ],
                       ),
-                      Divider(thickness: 1, height: 20, color: Colors.grey),
+                      Divider(
+                        thickness: 1,
+                        height: 20,
+                        color: Theme.of(context).dividerColor,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
                             text: "Featured Product",
                             fontSize: 15,
-                            color: Colors.black,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -161,8 +164,8 @@ class _AddNewProductState extends State<AddNewProduct> {
                               padding: const EdgeInsets.all(3),
                               decoration: BoxDecoration(
                                 color: isFeatured
-                                    ? Colors.red
-                                    : Colors.grey.shade400,
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context).dividerColor,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: AnimatedAlign(
@@ -187,8 +190,9 @@ class _AddNewProductState extends State<AddNewProduct> {
                   ),
                 ),
               ),
-              SizedBox(height: 200),
+              SizedBox(height: 50),
               CustomElevatedButton(onPressed: () {}, text: 'Add Product'),
+              SizedBox(height: 20),
             ],
           ),
         ),

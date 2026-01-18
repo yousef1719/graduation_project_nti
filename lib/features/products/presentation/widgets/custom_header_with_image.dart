@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 
 class CustomHeaderWithImage extends StatelessWidget {
@@ -30,11 +29,11 @@ class CustomHeaderWithImage extends StatelessWidget {
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
-                      color: Colors.grey[300],
-                      child: const Icon(
+                      color: Theme.of(context).cardColor,
+                      child: Icon(
                         Icons.image,
                         size: 100,
-                        color: Colors.grey,
+                        color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
                     );
                   },
@@ -81,14 +80,19 @@ class CustomHeaderWithImage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: Icon(CupertinoIcons.back, color: AppColors.textColor),
+                  icon: Icon(
+                    CupertinoIcons.back,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
                   style: IconButton.styleFrom(
                     iconSize: 20,
                     padding: EdgeInsets.zero,
                     minimumSize: const Size(30, 30),
-                    backgroundColor: Colors.grey.withOpacity(0.3),
+                    backgroundColor: Theme.of(
+                      context,
+                    ).cardColor.withValues(alpha: 0.8),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(25),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                   ),
                 ),
@@ -106,9 +110,11 @@ class CustomHeaderWithImage extends StatelessWidget {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Theme.of(
+                          context,
+                        ).shadowColor.withValues(alpha: 0.2),
                         blurRadius: 20,
-                        offset: Offset(0, -10),
+                        offset: const Offset(0, -10),
                       ),
                     ],
                   ),
@@ -125,7 +131,7 @@ class CustomHeaderWithImage extends StatelessWidget {
                   ),
                   child: Container(
                     height: 40,
-                    color: AppColors.backgroundColor,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                   ),
                 ),
               ),

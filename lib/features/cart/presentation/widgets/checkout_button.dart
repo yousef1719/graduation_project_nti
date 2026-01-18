@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class CheckoutButton extends StatelessWidget {
@@ -11,8 +10,8 @@ class CheckoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
         boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
       ),
       child: SizedBox(
@@ -21,7 +20,7 @@ class CheckoutButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             elevation: 6,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(14),
@@ -34,7 +33,7 @@ class CheckoutButton extends StatelessWidget {
                 text: 'Checkout',
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: AppColors.backgroundColor,
+                color: Colors.white,
               ),
 
               Row(
@@ -43,7 +42,7 @@ class CheckoutButton extends StatelessWidget {
                     text: '\$${total.toStringAsFixed(2)}',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.backgroundColor,
+                    color: Colors.white,
                   ),
                   const SizedBox(width: 6),
                   const Icon(

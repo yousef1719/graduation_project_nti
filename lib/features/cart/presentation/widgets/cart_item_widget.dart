@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../data/models/cart_item.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 
 class CartItemWidget extends StatelessWidget {
   final CartItem item;
@@ -22,7 +21,7 @@ class CartItemWidget extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -52,15 +51,18 @@ class CartItemWidget extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   item.subtitle,
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   "\$${item.price.toStringAsFixed(2)}",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ],
@@ -70,11 +72,14 @@ class CartItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               IconButton(
-                icon: const Icon(Icons.delete_outline, color: Colors.grey),
+                icon: Icon(
+                  Icons.delete_outline,
+                  color: Theme.of(context).textTheme.bodySmall?.color,
+                ),
                 onPressed: onDelete,
               ),
               const SizedBox(height: 20),
-              _quantitySelector(),
+              _quantitySelector(context),
             ],
           ),
         ],
@@ -82,12 +87,13 @@ class CartItemWidget extends StatelessWidget {
     );
   }
 
-  Widget _quantitySelector() {
+  Widget _quantitySelector(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Theme.of(context).dividerColor, width: 1),
       ),
       child: Row(
         children: [

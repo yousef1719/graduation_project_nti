@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 
 class CustomIndicatorWidget extends StatelessWidget {
   const CustomIndicatorWidget({super.key, required this.value});
@@ -13,11 +12,15 @@ class CustomIndicatorWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         minHeight: 6,
         value: value,
-        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
+        valueColor: AlwaysStoppedAnimation<Color>(
+          Theme.of(context).colorScheme.primary,
+        ),
         semanticsLabel: 'Linear progress indicator',
         semanticsValue: '50%',
-        color: AppColors.primaryColor,
-        backgroundColor: Color(0xffF8E3E0),
+        color: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(
+          context,
+        ).colorScheme.primary.withValues(alpha: 0.2),
       ),
     );
   }

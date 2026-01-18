@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 import 'package:graduation_project_nti/features/products/presentation/widgets/product_colors_selector_section.dart';
 import 'package:graduation_project_nti/features/products/presentation/widgets/product_description_section.dart';
@@ -22,7 +20,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        color: AppColors.backgroundColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(

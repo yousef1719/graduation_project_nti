@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class HomeSliverAppBarWidget extends StatelessWidget {
@@ -9,8 +8,6 @@ class HomeSliverAppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
-    // final height = MediaQuery.of(context).size.height;
     return SliverAppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
@@ -18,7 +15,7 @@ class HomeSliverAppBarWidget extends StatelessWidget {
       pinned: true,
       floating: true,
       snap: true,
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -31,16 +28,24 @@ class HomeSliverAppBarWidget extends StatelessWidget {
           CustomText(
             text: 'Luxe',
             fontSize: 25,
-            color: AppColors.textColor,
+            color: Theme.of(context).textTheme.titleLarge?.color,
             fontWeight: FontWeight.w700,
             fontFamily: 'Playfair',
           ),
         ],
       ),
       actions: [
-        Icon(CupertinoIcons.search, color: AppColors.textColor, size: 22),
+        Icon(
+          CupertinoIcons.search,
+          color: Theme.of(context).iconTheme.color,
+          size: 22,
+        ),
         SizedBox(width: 16),
-        Icon(CupertinoIcons.bell, color: AppColors.textColor, size: 22),
+        Icon(
+          CupertinoIcons.bell,
+          color: Theme.of(context).iconTheme.color,
+          size: 22,
+        ),
       ],
     );
   }

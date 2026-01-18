@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/login_screen.dart';
@@ -23,13 +22,13 @@ class _CustomBodyOnboardingState extends State<CustomBodyOnboarding> {
           CustomText(
             text: 'Discover Unique',
             fontSize: 28,
-            color: AppColors.textColor,
+            color: Theme.of(context).textTheme.bodyLarge?.color,
             fontWeight: FontWeight.w800,
           ),
           CustomText(
             text: 'Accessories',
             fontSize: 28,
-            color: AppColors.primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.w800,
           ),
           const SizedBox(height: 15),
@@ -38,7 +37,7 @@ class _CustomBodyOnboardingState extends State<CustomBodyOnboarding> {
                 'Shop the latest trends in jewelry, watches,\nand bags tailored just for you.',
             fontSize: 14,
             textAlign: TextAlign.center,
-            color: AppColors.hintTextColor,
+            color: Theme.of(context).textTheme.bodySmall?.color,
             fontWeight: FontWeight.w400,
           ),
           SizedBox(height: 20),

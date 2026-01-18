@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -25,19 +24,22 @@ class CustomAppBar extends StatelessWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: automaticallyImplyLeading ?? true,
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       centerTitle: centerTitle ?? true,
       title: CustomText(
         text: title ?? '',
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: AppColors.textColor,
+        color: Theme.of(context).textTheme.bodyLarge?.color,
       ),
       leading:
           leading ??
           IconButton(
             onPressed: onPressedLeading ?? () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back_ios_new, color: AppColors.textColor),
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
+            ),
           ),
       actions: actions,
     );

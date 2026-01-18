@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class HeaderProfileSection extends StatelessWidget {
@@ -22,14 +21,22 @@ class HeaderProfileSection extends StatelessWidget {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.hintTextColor.withOpacity(0.2),
+                      color:
+                          Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.color?.withOpacity(0.2) ??
+                          Colors.grey.withOpacity(0.2),
                       blurRadius: 5,
                       spreadRadius: 5,
                     ),
                   ],
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: AppColors.hintTextColor.withOpacity(0.3),
+                    color:
+                        Theme.of(
+                          context,
+                        ).textTheme.bodySmall?.color?.withOpacity(0.3) ??
+                        Colors.grey.withOpacity(0.3),
                     width: 2,
                   ),
                 ),
@@ -54,11 +61,11 @@ class HeaderProfileSection extends StatelessWidget {
                   width: 30,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppColors.primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   child: const Icon(
                     CupertinoIcons.pen,
-                    color: AppColors.backgroundColor,
+                    color: Colors.white,
                     size: 18,
                   ),
                 ),
@@ -71,13 +78,13 @@ class HeaderProfileSection extends StatelessWidget {
           text: 'John Doe',
           fontSize: 22,
           fontWeight: FontWeight.bold,
-          color: AppColors.textColor,
+          color: Theme.of(context).textTheme.bodyLarge?.color,
         ),
         CustomText(
           text: 'john.doe@example.com',
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: AppColors.hintTextColor,
+          color: Theme.of(context).textTheme.bodySmall?.color,
         ),
         const SizedBox(height: 16),
         Padding(
@@ -85,7 +92,11 @@ class HeaderProfileSection extends StatelessWidget {
           child: Column(
             children: [
               Divider(
-                color: AppColors.hintTextColor.withOpacity(0.3),
+                color:
+                    Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.color?.withOpacity(0.3) ??
+                    Colors.grey.withOpacity(0.3),
                 thickness: 1,
               ),
               const SizedBox(height: 8),
@@ -98,13 +109,13 @@ class HeaderProfileSection extends StatelessWidget {
                         text: '12',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.textColor,
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
                       ),
                       CustomText(
                         text: 'Orders',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.hintTextColor,
+                        color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
                     ],
                   ),
@@ -114,13 +125,13 @@ class HeaderProfileSection extends StatelessWidget {
                         text: '3',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.textColor,
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
                       ),
                       CustomText(
                         text: 'Returns',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.hintTextColor,
+                        color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
                     ],
                   ),
@@ -130,13 +141,13 @@ class HeaderProfileSection extends StatelessWidget {
                         text: '\$450',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.primaryColor,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       CustomText(
                         text: 'Spent',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.hintTextColor,
+                        color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
                     ],
                   ),
@@ -144,7 +155,11 @@ class HeaderProfileSection extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Divider(
-                color: AppColors.hintTextColor.withOpacity(0.3),
+                color:
+                    Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.color?.withOpacity(0.3) ??
+                    Colors.grey.withOpacity(0.3),
                 thickness: 1,
               ),
             ],

@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/constants/app_images.dart';
 import 'package:graduation_project_nti/core/helpers/validators.dart';
 import 'package:graduation_project_nti/core/network/api_error.dart';
@@ -11,6 +10,7 @@ import 'package:graduation_project_nti/core/shared_widgets/custom_outlined_butto
 import 'package:graduation_project_nti/core/shared_widgets/custom_snack_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/auth/data/repo/auth_repo.dart';
+import 'package:graduation_project_nti/features/auth/presentation/screens/Create_password_Screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:graduation_project_nti/root.dart';
 import 'register_screen.dart';
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: PopScope(
         canPop: false,
         child: GestureDetector(
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomText(
                       text: 'Welcome Back',
                       fontSize: 32,
-                      color: AppColors.textColor,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                       fontWeight: FontWeight.w500,
                     ),
                     const SizedBox(height: 8),
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       text:
                           'Log in to discover the latest trends in accessories.',
                       fontSize: 14,
-                      color: AppColors.hintTextColor,
+                      color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
                     const SizedBox(height: 20),
                     CustomTextField(
@@ -129,8 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               : Icons.visibility_outlined,
                         ),
                         color: isActive
-                            ? AppColors.primaryColor
-                            : AppColors.hintTextColor,
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).textTheme.bodySmall?.color,
                         iconSize: 20,
                       ),
                       controller: passwordController,
@@ -139,11 +139,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CreatePasswordScreen(),
+                            ),
+                          );
+                        },
                         child: CustomText(
                           text: 'Forgot Password?',
                           fontSize: 12,
-                          color: AppColors.primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),
@@ -158,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomText(
                           text: '   Or sign in with   ',
                           fontSize: 14,
-                          color: AppColors.hintTextColor,
+                          color: Theme.of(context).textTheme.bodySmall?.color,
                         ),
                         Expanded(child: Divider(thickness: 1)),
                       ],
@@ -188,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomText(
                           text: 'Don\'t have an account? ',
                           fontSize: 14,
-                          color: AppColors.hintTextColor,
+                          color: Theme.of(context).textTheme.bodySmall?.color,
                         ),
                         TextButton(
                           onPressed: () {
@@ -203,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: CustomText(
                             text: 'Sign Up',
                             fontSize: 14,
-                            color: AppColors.primaryColor,
+                            color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

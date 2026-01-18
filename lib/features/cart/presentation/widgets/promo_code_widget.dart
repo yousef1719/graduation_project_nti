@@ -12,11 +12,11 @@ class PromoCodeWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomText(
+        CustomText(
           text: "Promo Code",
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: Color(0xff374151),
+          color: Theme.of(context).textTheme.bodyLarge?.color,
         ),
         const SizedBox(height: 8),
         Row(
@@ -28,7 +28,7 @@ class PromoCodeWidget extends StatelessWidget {
               width: 85,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff111827),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),

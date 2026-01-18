@@ -20,14 +20,23 @@ class OrderSummaryWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         children: [
-          SummaryRow(title: "Subtotal", value: "\$${subtotal.toStringAsFixed(2)}"),
-          SummaryRow(title: "Shipping", value: shipping == 0 ? "Free" : "\$${shipping.toStringAsFixed(2)}"),
-          SummaryRow(title: "Estimated Tax", value: "\$${tax.toStringAsFixed(2)}"),
+          SummaryRow(
+            title: "Subtotal",
+            value: "\$${subtotal.toStringAsFixed(2)}",
+          ),
+          SummaryRow(
+            title: "Shipping",
+            value: shipping == 0 ? "Free" : "\$${shipping.toStringAsFixed(2)}",
+          ),
+          SummaryRow(
+            title: "Estimated Tax",
+            value: "\$${tax.toStringAsFixed(2)}",
+          ),
           const Divider(),
           SummaryRow(
             title: "Total",

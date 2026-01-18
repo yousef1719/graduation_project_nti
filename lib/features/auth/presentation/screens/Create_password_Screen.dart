@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/helpers/validators.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_app_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
@@ -21,7 +20,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: CustomAppBar(
@@ -61,8 +60,8 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         : Icons.visibility_outlined,
                   ),
                   color: isVisible
-                      ? AppColors.primaryColor
-                      : AppColors.hintTextColor,
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).textTheme.bodySmall?.color,
                   iconSize: 20,
                 ),
                 controller: newPassword,
@@ -87,8 +86,8 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         : Icons.visibility_outlined,
                   ),
                   color: isVisible
-                      ? AppColors.primaryColor
-                      : AppColors.hintTextColor,
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).textTheme.bodySmall?.color,
                   iconSize: 20,
                 ),
                 controller: newPassword,

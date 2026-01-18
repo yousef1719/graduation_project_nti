@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/constants/app_images.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/splash/presentation/screens/onboarding_screen.dart';
@@ -79,67 +78,67 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(seconds: 3),
-      color: progress < 0.5 ? Colors.white : AppColors.backgroundColor,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: ScaleTransition(
-                  scale: _scaleAnimation,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primaryColor.withOpacity(0.3),
-                          blurRadius: 50,
-                          offset: const Offset(0, 0),
-                        ),
-                      ],
-                    ),
-                    child: SvgPicture.asset(AppImages.logo),
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Spacer(),
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: ScaleTransition(
+                scale: _scaleAnimation,
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.3),
+                        blurRadius: 50,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
                   ),
+                  child: SvgPicture.asset(AppImages.logo),
                 ),
               ),
-              SlideTransition(
-                position: _titleSlide,
-                child: const Text(
-                  'Luxe',
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Playfair',
-                  ),
+            ),
+            const SizedBox(height: 20),
+            SlideTransition(
+              position: _titleSlide,
+              child: Text(
+                'Luxe',
+                style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'Playfair',
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
-              const SizedBox(height: 10),
-              SlideTransition(
-                position: _subtitleSlide,
-                child: CustomText(
-                  text: 'Premium Accessories',
-                  fontSize: 16,
-                  color: AppColors.hintTextColor,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              const Spacer(),
-              CustomIndicatorWidget(value: progress),
-              const SizedBox(height: 30),
-              CustomText(
-                text: 'version 1.0',
-                fontSize: 12,
-                color: AppColors.hintTextColor,
+            ),
+            const SizedBox(height: 10),
+            SlideTransition(
+              position: _subtitleSlide,
+              child: CustomText(
+                text: 'Premium Accessories',
+                fontSize: 16,
+                color: Theme.of(context).textTheme.bodySmall?.color,
                 fontWeight: FontWeight.w400,
               ),
-              const Spacer(),
-            ],
-          ),
+            ),
+            const Spacer(),
+            CustomIndicatorWidget(value: progress),
+            const SizedBox(height: 30),
+            CustomText(
+              text: 'version 1.0',
+              fontSize: 12,
+              color: Theme.of(context).textTheme.bodySmall?.color,
+              fontWeight: FontWeight.w400,
+            ),
+            const Spacer(),
+          ],
         ),
       ),
     );

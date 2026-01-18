@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 
 class SummaryRow extends StatelessWidget {
   final String title;
@@ -24,7 +23,7 @@ class SummaryRow extends StatelessWidget {
             title,
             style: TextStyle(
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-              color: const Color(0xff111827),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           Text(
@@ -32,8 +31,8 @@ class SummaryRow extends StatelessWidget {
             style: TextStyle(
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               color: value == "Free"
-                  ? AppColors.primaryColor
-                  : const Color(0xff111827),
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
         ],

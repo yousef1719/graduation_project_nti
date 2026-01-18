@@ -65,6 +65,7 @@ class _HomeBannerWidgetState extends State<HomeBannerWidget> {
       itemBuilder: (context, int itemindex, int pageViewIndex) {
         final offer = offers[itemindex];
         return Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
