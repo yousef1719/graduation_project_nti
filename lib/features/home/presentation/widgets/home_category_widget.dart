@@ -1,8 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/home/data/models/category_model.dart';
 
@@ -50,8 +48,8 @@ class _HomeCategoryWidgetState extends State<HomeCategoryWidget> {
         children: [
           CustomText(
             text: 'Category',
-            fontSize: 18,
-            color: AppColors.textColor,
+            fontSize: 20,
+            color: Theme.of(context).textTheme.titleLarge?.color,
             fontWeight: FontWeight.bold,
           ),
           SizedBox(height: 12),
@@ -76,8 +74,10 @@ class _HomeCategoryWidgetState extends State<HomeCategoryWidget> {
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: isSeleceted == index
-                                  ? AppColors.primaryColor.withOpacity(0.5)
-                                  : Color(0xffE5E7EB),
+                                  ? Theme.of(
+                                      context,
+                                    ).colorScheme.primary.withOpacity(0.5)
+                                  : Theme.of(context).dividerColor,
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(100),
@@ -85,7 +85,7 @@ class _HomeCategoryWidgetState extends State<HomeCategoryWidget> {
                           child: Container(
                             padding: const EdgeInsets.all(2),
                             decoration: BoxDecoration(
-                              color: AppColors.backgroundColor,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: CircleAvatar(
@@ -100,7 +100,7 @@ class _HomeCategoryWidgetState extends State<HomeCategoryWidget> {
                         text: items[index].name,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.textColor,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
                       ),
                     ],
                   ),

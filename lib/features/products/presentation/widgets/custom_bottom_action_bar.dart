@@ -1,8 +1,5 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 
@@ -15,27 +12,51 @@ class CustomBottomActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      color: AppColors.backgroundColor,
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.1),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
       child: Row(
         children: [
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: AppColors.hintTextColor.withOpacity(0.2),
+              color: Theme.of(context).cardColor,
+              border: Border.all(
+                color: Theme.of(context).dividerColor,
+                width: 1,
+              ),
             ),
             child: Row(
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.remove, size: 20),
+                  icon: Icon(
+                    Icons.remove,
+                    size: 20,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
                 ),
                 CustomText(
                   text: '1',
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.textColor,
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.add, size: 20)),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.add,
+                    size: 20,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                ),
               ],
             ),
           ),
@@ -43,18 +64,15 @@ class CustomBottomActionBar extends StatelessWidget {
           Expanded(
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: const Icon(
-                CupertinoIcons.cart,
-                color: AppColors.backgroundColor,
-              ),
-              label: CustomText(
+              icon: const Icon(CupertinoIcons.cart, color: Colors.white),
+              label: const CustomText(
                 text: 'Add to Cart',
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: AppColors.backgroundColor,
+                color: Colors.white,
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),

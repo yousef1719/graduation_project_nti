@@ -5,7 +5,7 @@ class CustomText extends StatelessWidget {
     super.key,
     required this.text,
     required this.fontSize,
-    required this.color,
+    this.color,
     this.fontWeight,
     this.textAlign,
     this.overflow,
@@ -14,7 +14,7 @@ class CustomText extends StatelessWidget {
   });
   final String text;
   final double fontSize;
-  final Color color;
+  final Color? color;
   final FontWeight? fontWeight;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
@@ -30,7 +30,7 @@ class CustomText extends StatelessWidget {
       maxLines: maxLines,
       style: TextStyle(
         fontSize: fontSize,
-        color: color,
+        color: color ?? Theme.of(context).textTheme.bodyMedium?.color,
         fontWeight: fontWeight,
         fontFamily: fontFamily ?? 'PlusJakartaSans',
       ),

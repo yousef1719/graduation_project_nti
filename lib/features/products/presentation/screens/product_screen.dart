@@ -3,7 +3,6 @@
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_app_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/home/presentation/widgets/custom_grid_view.dart';
@@ -62,7 +61,7 @@ class _ProductScreenState extends State<ProductScreen> {
       dx: MediaQuery.of(context).size.width - 28,
       dy: MediaQuery.of(context).size.height - 288,
       mainScreenWidget: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: CustomAppBar(
@@ -87,7 +86,10 @@ class _ProductScreenState extends State<ProductScreen> {
                     double refreshTriggerPullDistance,
                     double refreshIndicatorExtent,
                   ) {
-                    return const CupertinoActivityIndicator(radius: 14);
+                    return CupertinoActivityIndicator(
+                      radius: 10,
+                      color: Theme.of(context).colorScheme.primary,
+                    );
                   },
             ),
             FutureBuilder<List<ProductModel>>(
@@ -96,18 +98,9 @@ class _ProductScreenState extends State<ProductScreen> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return SliverFillRemaining(
                     child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CupertinoActivityIndicator(radius: 16),
-                          const SizedBox(height: 16),
-                          Text(
-                            'Loading products...',
-                            style: TextStyle(
-                              color: AppColors.textColor.withOpacity(0.7),
-                            ),
-                          ),
-                        ],
+                      child: CupertinoActivityIndicator(
+                        radius: 10,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   );
@@ -117,33 +110,26 @@ class _ProductScreenState extends State<ProductScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             CupertinoIcons.exclamationmark_circle,
                             size: 50,
-                            color: Colors.red,
+                            color: Theme.of(context).colorScheme.error,
                           ),
                           const SizedBox(height: 16),
                           Text(
                             'Error loading products',
-                            style: TextStyle(
-                              color: AppColors.textColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           const SizedBox(height: 8),
                           Text(
                             snapshot.error.toString(),
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: AppColors.hintTextColor,
-                              fontSize: 14,
-                            ),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                           const SizedBox(height: 20),
                           CupertinoButton(
                             onPressed: _refreshProducts,
-                            color: AppColors.primaryColor,
+                            color: Theme.of(context).colorScheme.primary,
                             child: const Text('Try Again'),
                           ),
                         ],
@@ -156,25 +142,23 @@ class _ProductScreenState extends State<ProductScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             CupertinoIcons.cube_box,
                             size: 60,
-                            color: Colors.grey,
+                            color: Theme.of(context).textTheme.bodySmall?.color,
                           ),
                           const SizedBox(height: 16),
                           Text(
                             'No products found',
-                            style: TextStyle(
-                              color: AppColors.hintTextColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           const SizedBox(height: 8),
                           CustomText(
                             text: 'Add new products to see them here',
                             fontSize: 14,
-                            color: AppColors.hintTextColor.withOpacity(0.7),
+                            color:
+                                Theme.of(context).textTheme.bodySmall?.color ??
+                                Colors.grey,
                           ),
                           const SizedBox(height: 20),
                           CupertinoButton(

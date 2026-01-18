@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/products/data/models/color_variant.dart';
 
@@ -25,12 +24,7 @@ class _ProductColorsSelectorSectionState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText(
-          text: 'Color',
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: AppColors.textColor,
-        ),
+        CustomText(text: 'Color', fontSize: 18, fontWeight: FontWeight.bold),
         const SizedBox(height: 10),
         Row(
           children: List.generate(variants.length, (index) {
@@ -53,7 +47,7 @@ class _ProductColorsSelectorSectionState
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: isSelected
-                          ? AppColors.primaryColor
+                          ? Theme.of(context).colorScheme.primary
                           : Colors.transparent,
                       width: 1.5,
                     ),

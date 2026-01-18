@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:graduation_project_nti/core/network/api_error.dart';
 import 'package:graduation_project_nti/core/network/api_exception.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
+import 'package:graduation_project_nti/features/products/data/models/review_model.dart';
 
 class ProductRepo {
   final Dio dio = Dio(
@@ -40,5 +41,21 @@ class ProductRepo {
       throw ApiError(message: e.toString());
     }
   }
-}
 
+  Future<List<ReviewModel>> getProductReviews(
+    String productId, {
+    int page = 1,
+    int pageSize = 10,
+  }) async {
+    try {
+      final response = await dio.post(
+        '/reviews/$productId',
+        data: {"productId": productId, "page": page, "pageSize": pageSize},
+      );
+      final items = response.data['reviews']['items'] as List;
+      return items.map((e) => ReviewModel.fromJson(e)).toList();
+    } catch (e) {
+      throw ApiError(message: e.toString());
+    }
+  }
+}

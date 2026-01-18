@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 import 'package:graduation_project_nti/features/products/presentation/screens/product_details_screen.dart';
@@ -21,10 +20,7 @@ class _CustomGridViewState extends State<CustomGridView> {
     final size = MediaQuery.of(context).size;
     final height = size.height;
     final width = size.width;
-
-    // حساب عدد الأعمدة بناءً على عرض الشاشة
     final crossAxisCount = width > 600 ? 3 : 2;
-
     return SliverPadding(
       padding: const EdgeInsets.all(8.0),
       sliver: SliverGrid(
@@ -44,7 +40,7 @@ class _CustomGridViewState extends State<CustomGridView> {
               );
             },
             child: Card(
-              color: AppColors.backgroundColor,
+              color: Theme.of(context).cardColor,
               elevation: 5,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -57,7 +53,6 @@ class _CustomGridViewState extends State<CustomGridView> {
                   children: [
                     Stack(
                       children: [
-                        // استخدم NetworkImage بدلاً من Image.asset
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: product.coverPictureUrl.isNotEmpty
@@ -127,8 +122,6 @@ class _CustomGridViewState extends State<CustomGridView> {
                                   ),
                                 ),
                         ),
-
-                        // Discount badge - شريط على الشمال
                         if (product.discountPercentage > 0)
                           Positioned(
                             top: 8,
@@ -202,7 +195,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                       text: product.name,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textColor,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                     CustomText(
                       text: product.description,
@@ -210,7 +203,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                       overflow: TextOverflow.ellipsis,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.hintTextColor,
+                      color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
                     const SizedBox(height: 4),
                     Row(
@@ -221,22 +214,22 @@ class _CustomGridViewState extends State<CustomGridView> {
                             text: '\$${product.price.toStringAsFixed(2)}',
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.primaryColor,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         IconButton(
-                          onPressed: () {
-                            // إضافة المنتج إلى السلة
-                          },
+                          onPressed: () {},
                           icon: Icon(
                             Icons.add,
-                            color: AppColors.backgroundColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             size: 18,
                           ),
                           style: IconButton.styleFrom(
                             padding: EdgeInsets.zero,
                             minimumSize: const Size(25, 25),
-                            backgroundColor: AppColors.textColor,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge?.color,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadiusGeometry.circular(25),
                             ),

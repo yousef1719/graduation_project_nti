@@ -32,7 +32,11 @@ class ApiService {
 
   /// POST
 
-  Future<dynamic> post(String endpoint, Map<String, dynamic> body) async {
+  Future<dynamic> post(
+    String endpoint,
+    Map<String, dynamic> body, {
+    String? token,
+  }) async {
     try {
       final response = await _dioClient.dio.post(
         endpoint,
@@ -41,6 +45,7 @@ class ApiService {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
+            if (token != null) 'Authorization': 'Bearer $token',
           },
         ),
       );

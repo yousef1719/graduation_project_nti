@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
@@ -19,8 +18,8 @@ class CustomOutlinedButton extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-        backgroundColor: AppColors.backgroundColor,
-        side: BorderSide(color: AppColors.hintTextColor),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        side: BorderSide(color: Theme.of(context).dividerColor),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         padding: EdgeInsets.symmetric(horizontal: 12),
         minimumSize: Size(double.infinity, 48),
@@ -29,7 +28,7 @@ class CustomOutlinedButton extends StatelessWidget {
       label: CustomText(
         text: text,
         fontSize: 14,
-        color: AppColors.textColor,
+        color: Theme.of(context).textTheme.bodyLarge?.color,
         fontWeight: FontWeight.w500,
       ),
     );

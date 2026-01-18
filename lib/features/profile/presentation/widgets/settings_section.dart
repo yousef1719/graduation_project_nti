@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/profile/data/models/settings_item_model.dart';
 import 'package:graduation_project_nti/features/profile/presentation/widgets/custom_settings_tile.dart';
@@ -22,7 +21,7 @@ class SettingsSection extends StatelessWidget {
           child: CustomText(
             text: title,
             fontSize: 16,
-            color: AppColors.textColor,
+            color: Theme.of(context).textTheme.titleLarge?.color,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -31,7 +30,7 @@ class SettingsSection extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 8),
             decoration: BoxDecoration(
-              color: AppColors.hintTextColor.withOpacity(0.05),
+              color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
@@ -43,10 +42,11 @@ class SettingsSection extends StatelessWidget {
                     if (index != items.length - 1)
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: const Divider(
+                        child: Divider(
                           height: 1,
                           indent: 16,
                           endIndent: 16,
+                          color: Theme.of(context).dividerColor,
                         ),
                       ),
                   ],
