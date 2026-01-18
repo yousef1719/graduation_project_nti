@@ -63,8 +63,9 @@ class _CustomGridViewState extends State<CustomGridView> {
                                   fit: BoxFit.cover,
                                   loadingBuilder:
                                       (context, child, loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
                                         return Container(
                                           height: height * 0.2,
                                           width: double.infinity,

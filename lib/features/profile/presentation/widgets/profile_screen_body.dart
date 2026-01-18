@@ -10,6 +10,7 @@ import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/login_screen.dart';
 import 'package:graduation_project_nti/features/profile/data/models/settings_item_model.dart';
 import 'package:graduation_project_nti/features/profile/data/repo/profile_repo.dart';
+import 'package:graduation_project_nti/features/profile/presentation/screens/about_us.dart';
 import 'package:graduation_project_nti/features/profile/presentation/screens/change_pssword_screen.dart';
 import 'package:graduation_project_nti/features/profile/presentation/widgets/settings_section.dart';
 
@@ -127,6 +128,15 @@ class ProfileScreenBody extends StatelessWidget {
               icon: CupertinoIcons.info,
               title: "About Us",
               subtitle: "",
+
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AboutUsScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
