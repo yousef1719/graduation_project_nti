@@ -103,8 +103,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
             backgroundColor: Colors.green.shade700,
           ),
         );
-
-        // TODO: Navigate to next screen
       } else {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(

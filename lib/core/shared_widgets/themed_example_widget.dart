@@ -1,13 +1,9 @@
+// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project_nti/core/theme/theme_cubit.dart';
 import 'package:graduation_project_nti/core/theme/theme_state.dart';
 
-/// Example widget showing how to use theming in your widgets
-/// This demonstrates:
-/// 1. Using Theme.of(context) to get theme colors
-/// 2. Using BlocBuilder to react to theme changes
-/// 3. Proper text and background color handling
 class ThemedExampleWidget extends StatelessWidget {
   const ThemedExampleWidget({super.key});
 
@@ -16,17 +12,15 @@ class ThemedExampleWidget extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, themeState) {
         final isDark = themeState.isDarkMode;
-        
         return Container(
           padding: const EdgeInsets.all(16),
           margin: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            // Use theme colors for background
             color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: isDark 
+                color: isDark
                     ? Colors.black.withOpacity(0.3)
                     : Colors.grey.withOpacity(0.2),
                 blurRadius: 8,
@@ -37,21 +31,16 @@ class ThemedExampleWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title using theme text style
               Text(
                 'Themed Widget Example',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
-              
-              // Body text using theme text style
               Text(
                 'This widget automatically adapts to light and dark themes.',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
-              
-              // Example button using theme colors
               ElevatedButton(
                 onPressed: () {
                   context.read<ThemeCubit>().toggleTheme();
@@ -60,10 +49,7 @@ class ThemedExampleWidget extends StatelessWidget {
                   isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
                 ),
               ),
-              
               const SizedBox(height: 8),
-              
-              // Small text using theme hint color
               Text(
                 'Current mode: ${isDark ? "Dark" : "Light"}',
                 style: Theme.of(context).textTheme.bodySmall,
@@ -96,18 +82,9 @@ class ThemedCard extends StatelessWidget {
     return Card(
       // Card automatically uses theme.cardColor
       child: ListTile(
-        leading: Icon(
-          icon,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        subtitle: Text(
-          subtitle,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
+        leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
+        title: Text(title, style: Theme.of(context).textTheme.titleMedium),
+        subtitle: Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
         trailing: Icon(
           Icons.arrow_forward_ios,
           size: 16,
@@ -151,4 +128,3 @@ class ThemedTextField extends StatelessWidget {
     );
   }
 }
-
