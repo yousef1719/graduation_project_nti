@@ -1,4 +1,12 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_app_bar.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button_with_icon.dart';
+import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/profile/presentation/screens/help_screen.dart';
+import 'package:graduation_project_nti/features/profile/presentation/widgets/build_section_header.dart';
+import 'package:graduation_project_nti/features/profile/presentation/widgets/feature_card.dart';
 
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({super.key});
@@ -6,135 +14,118 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          "About Us",
-          style: TextStyle(
-            color: Colors.black, 
-            fontWeight: FontWeight.bold, 
-            fontFamily: 'PlusJakartaSans', // استخدام خط مشروعك
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: CustomAppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back_ios_new),
           ),
+          title: 'About Us',
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Banner Image
             Container(
-              height: 220,
+              height: 180,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 image: const DecorationImage(
-                  image: AssetImage('assets/images/about_banner.png'), 
+                  image: AssetImage(
+                    'assets/images/background/about_banner.png',
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
               alignment: Alignment.bottomLeft,
               padding: const EdgeInsets.all(20),
-              child: const Text(
-                "Crafting Style Since 2018",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontFamily: 'Playfair', // استخدام الخط الفخم للعناوين
-                  fontWeight: FontWeight.w800,
-                  shadows: [Shadow(color: Colors.black45, blurRadius: 10)],
-                ),
+              child: CustomText(
+                text: "Crafting Style Since 2018",
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                // color: Colors.white,
               ),
             ),
             const SizedBox(height: 25),
-
-            _buildSectionHeader(Icons.diamond_outlined, "Our Mission", Colors.orange.shade100, Colors.orange),
-            const Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 25),
-              child: Text(
-                "We believe that accessories are more than just additions to an outfit—they are expressions of personality.",
-                style: TextStyle(color: Colors.grey, height: 1.5, fontFamily: 'PlusJakartaSans'),
+            BuildSectionHeader(
+              icon: Icons.diamond_outlined,
+              title: "Our Mission",
+              bgColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              iconColor: Theme.of(context).colorScheme.primary,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 15),
+              child: CustomText(
+                text:
+                    'We believe that accessories are more than just additions to an outfit—they are expressions of personality. Our mission is to curate unique, high- quality pieces that empower you to shine every day.',
+                fontSize: 14,
+                color: Theme.of(context).textTheme.bodySmall?.color,
               ),
             ),
-
-            const Text("What We Offer", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'PlusJakartaSans')),
-            const SizedBox(height: 15),
-
-            // قائمة المميزات
-            const FeatureCard(icon: Icons.verified_outlined, title: "Authentic Quality", description: "Hand-picked materials for excellence."),
-            const FeatureCard(icon: Icons.local_shipping_outlined, title: "Global Delivery", description: "Secure shipping worldwide."),
-
-            const SizedBox(height: 20),
-
-            // زر الاتصال
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1A1A1A),
-                minimumSize: const Size(double.infinity, 55),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            BuildSectionHeader(
+              icon: Icons.visibility_outlined,
+              title: "Our Vision",
+              bgColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              iconColor: Theme.of(context).colorScheme.primary,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 15),
+              child: CustomText(
+                text:
+                    'To become the global destination for modern accessories, bridging the gap between luxury design and accessible fashion for trendsetters everywhere.',
+                fontSize: 14,
+                color: Theme.of(context).textTheme.bodySmall?.color,
               ),
-              child: const Text("Contact Us", style: TextStyle(color: Colors.white)),
+            ),
+            CustomText(
+              text: "What We Offer",
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+            const SizedBox(height: 15),
+            const FeatureCard(
+              icon: Icons.verified_outlined,
+              title: "Authentic Quality",
+              description: "Hand-picked materials for excellence.",
+            ),
+            const FeatureCard(
+              icon: Icons.local_shipping_outlined,
+              title: "Global Delivery",
+              description: "Secure shipping worldwide.",
+            ),
+            const SizedBox(height: 20),
+            CustomElevatedButtonWithIcon(
+              text: 'Contact Us',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const HelpScreen()),
+                );
+              },
+              textColor: Theme.of(context).colorScheme.primary,
+              style: ElevatedButton.styleFrom(
+                elevation: 2,
+                minimumSize: const Size.fromHeight(50),
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withOpacity(0.2),
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                shadowColor: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(IconData icon, String title, Color bgColor, Color iconColor) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(10)),
-          child: Icon(icon, color: iconColor, size: 20),
-        ),
-        const SizedBox(width: 12),
-        Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'PlusJakartaSans')),
-      ],
-    );
-  }
-}
-
-// الـ Widget المخصص للكرت
-class FeatureCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String description;
-  const FeatureCard({super.key, required this.icon, required this.title, required this.description});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.grey.shade100),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.deepOrangeAccent),
-          const SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'PlusJakartaSans')),
-                Text(description, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
