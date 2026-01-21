@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_app_bar.dart';
 import 'package:graduation_project_nti/features/cart/data/models/cart_item.dart';
@@ -14,6 +16,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final Dio dio = Dio();
+  List<CartItem> cart = [];
   final List<CartItem> cartItems = [
     CartItem(
       id: '1',
@@ -32,14 +36,19 @@ class _CartScreenState extends State<CartScreen> {
   ];
 
   double get subtotal {
-    return cartItems.fold(0, (sum, item) => sum + item.price * item.quantity);
+    return cart.fold(0, (sum, item) => sum + item.price * item.quantity);
   }
 
   double get tax => 12.5;
   double get shipping => 0;
 
   double get total => subtotal + tax + shipping;
-
+  @override
+  // void initState() {
+  //   super.initState();
+  //   // TODO: implement initState
+  //   getAllCartItems();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +57,7 @@ class _CartScreenState extends State<CartScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: CustomAppBar(
           leading: SizedBox.shrink(),
-          title: 'My Cart (${cartItems.length})',
+          title: 'My Cart (${cart.length})',
           centerTitle: true,
         ),
       ),
@@ -57,10 +66,10 @@ class _CartScreenState extends State<CartScreen> {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              itemCount: cartItems.length + 1,
+              itemCount: cart.length + 1,
               itemBuilder: (context, index) {
-                if (index < cartItems.length) {
-                  final item = cartItems[index];
+                if (index < cart.length) {
+                  final item = cart[index];
                   return CartItemWidget(
                     key: ValueKey(item.id),
                     item: item,
@@ -76,7 +85,7 @@ class _CartScreenState extends State<CartScreen> {
                     },
                     onDelete: () {
                       setState(() {
-                        cartItems.removeAt(index);
+                        cart.removeAt(index);
                       });
                     },
                   );
@@ -103,4 +112,22 @@ class _CartScreenState extends State<CartScreen> {
       bottomNavigationBar: CheckoutButton(total: total),
     );
   }
+
+  // Future<void> getAllCartItems() async {
+  //   try {
+  //     Response response = await dio.get('https://dummyjson.com/carts');
+
+  //     final List cartsList = response.data['carts'];
+
+  //     if (cartsList.isNotEmpty) {
+  //       final List products = cartsList[0]['products'] as List;
+
+  //       setState(() {
+  //         cart = products.map((e) => CartItem.fromJson(e)).toList();
+  //       });
+  //     }
+  //   } on Exception catch (e, s) {
+  //     log('Error fetching cart', error: e, stackTrace: s);
+  //   }
+  // }
 }

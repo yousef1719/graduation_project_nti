@@ -78,6 +78,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                           )
                           : BorderSide.none,
                 ),
+<<<<<<< HEAD
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -109,6 +110,53 @@ class _CustomGridViewState extends State<CustomGridView> {
                                                 ).colorScheme.primary,
                                                 radius: 8,
                                               ),
+=======
+              );
+            },
+            child: Card(
+              color: AppColors.backgroundColor,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        // استخدم NetworkImage بدلاً من Image.asset
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: product.coverPictureUrl.isNotEmpty
+                              ? Image.network(
+                                  product.coverPictureUrl,
+                                  height: height * 0.2,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Container(
+                                          height: height * 0.2,
+                                          width: double.infinity,
+                                          color: Colors.grey[200],
+                                          child: Center(
+                                            child: CircularProgressIndicator(
+                                              value:
+                                                  loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                  : null,
+>>>>>>> 6e6ffc2 (Save current changes before pull)
                                             ),
                                           );
                                         },
