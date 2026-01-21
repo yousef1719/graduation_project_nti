@@ -36,7 +36,7 @@ class _CartScreenState extends State<CartScreen> {
   ];
 
   double get subtotal {
-    return cart.fold(0, (sum, item) => sum + item.price * item.quantity);
+    return cartItems.fold(0, (sum, item) => sum + item.price * item.quantity);
   }
 
   double get tax => 12.5;
@@ -66,10 +66,10 @@ class _CartScreenState extends State<CartScreen> {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              itemCount: cart.length + 1,
+              itemCount: cartItems.length + 1,
               itemBuilder: (context, index) {
-                if (index < cart.length) {
-                  final item = cart[index];
+                if (index < cartItems.length) {
+                  final item = cartItems[index];
                   return CartItemWidget(
                     key: ValueKey(item.id),
                     item: item,

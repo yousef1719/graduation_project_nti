@@ -1,8 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-<<<<<<< HEAD
-=======
 
->>>>>>> 6e6ffc2 (Save current changes before pull)
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/constants/app_images.dart';
