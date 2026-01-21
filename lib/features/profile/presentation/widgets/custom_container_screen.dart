@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_project_nti/core/constants/app_colors.dart';
 
 class CustomContainerScreen extends StatelessWidget {
   const CustomContainerScreen({super.key, required this.text});
@@ -10,7 +11,7 @@ class CustomContainerScreen extends StatelessWidget {
       height: 58,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).cardColor,
+        color: AppColors.backgroundColor,
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -22,10 +23,10 @@ class CustomContainerScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
-                color: Theme.of(context).textTheme.bodyLarge?.color,
+                color: AppColors.textColor,
               ),
             ),
-            Icon(Icons.add, color: Theme.of(context).textTheme.bodySmall?.color),
+            Icon(Icons.add, color: AppColors.hintTextColor),
           ],
         ),
       ),

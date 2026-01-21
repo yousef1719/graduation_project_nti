@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project_nti/core/constants/app_themes.dart';
 import 'package:graduation_project_nti/core/theme/theme_cubit.dart';
 import 'package:graduation_project_nti/core/theme/theme_state.dart';
+import 'package:graduation_project_nti/features/home/presentation/screens/home_screen.dart';
 import 'package:graduation_project_nti/features/splash/presentation/screens/splash_screen.dart';
 
 void main() {

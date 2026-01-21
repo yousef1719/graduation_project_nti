@@ -2,6 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:shared_preferences/shared_preferences.dart'; // 👈 مهم
+import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/constants/app_images.dart';
 import 'package:graduation_project_nti/core/helpers/validators.dart';
 import 'package:graduation_project_nti/core/network/api_error.dart';
@@ -31,9 +34,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   AuthRepo authRepo = AuthRepo();
   bool isLoading = false;
+
   Future<void> login() async {
     if (!formKey.currentState!.validate()) return;
     setState(() => isLoading = true);
+
     try {
       final loginData = await authRepo.login(
         emailController.text.trim(),
@@ -42,6 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() => isLoading = false);
 
       if (loginData != null) {
+        final prefs = await SharedPreferences.getInstance();
+        String? token = loginData.accessToken;
+        await prefs.setString('access_token', token!);
+
         ScaffoldMessenger.of(context).showSnackBar(
           CustomSnackBar.show(
             message: 'Login successful 🎉',
@@ -87,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     CustomText(
                       text: 'Welcome Back',
                       fontSize: 32,
@@ -136,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       controller: passwordController,
                     ),
-
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -157,18 +165,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 20),
                     isLoading
-                        ? Center(child: const CupertinoActivityIndicator())
+                        ? const Center(child: CupertinoActivityIndicator())
                         : CustomElevatedButton(onPressed: login, text: 'Login'),
                     const SizedBox(height: 30),
                     Row(
                       children: [
-                        Expanded(child: Divider(thickness: 1)),
+                        const Expanded(child: Divider(thickness: 1)),
                         CustomText(
                           text: '   Or sign in with   ',
                           fontSize: 14,
                           color: Theme.of(context).textTheme.bodySmall?.color,
                         ),
-                        Expanded(child: Divider(thickness: 1)),
+                        const Expanded(child: Divider(thickness: 1)),
                       ],
                     ),
                     const SizedBox(height: 30),
@@ -180,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             image: AppImages.googleLogo,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: CustomOutlinedButton(
                             text: 'Facebook',
