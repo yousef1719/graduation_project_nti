@@ -34,6 +34,7 @@ class _CustomGridViewState extends State<CustomGridView> {
     final height = size.height;
     final width = size.width;
     final crossAxisCount = width > 600 ? 3 : 2;
+    final theme = Theme.of(context);
     return SliverPadding(
       padding: const EdgeInsets.all(8.0),
       sliver: SliverGrid(
@@ -64,13 +65,14 @@ class _CustomGridViewState extends State<CustomGridView> {
             },
             child: Card(
               color: isSelectedId
-                  ? AppColors.primaryColor.withOpacity(0.1)
-                  : AppColors.backgroundColor,
+                  ? theme.colorScheme.primary.withAlpha(25)
+                  : theme.cardColor,
               elevation: isSelectedId ? 2 : 5,
+              shadowColor: theme.shadowColor.withAlpha(51),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
                 side: isSelectedId
-                    ? BorderSide(color: AppColors.primaryColor, width: 2)
+                    ? BorderSide(color: theme.colorScheme.primary, width: 2)
                     : BorderSide.none,
               ),
               child: Padding(
@@ -91,8 +93,9 @@ class _CustomGridViewState extends State<CustomGridView> {
                                   fit: BoxFit.cover,
                                   loadingBuilder:
                                       (context, child, loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
                                         return Container(
                                           height: height * 0.2,
                                           width: double.infinity,
@@ -168,7 +171,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
+                                    color: Colors.black.withAlpha(51),
                                     blurRadius: 4,
                                     offset: const Offset(2, 2),
                                   ),
@@ -201,7 +204,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                               style: IconButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 minimumSize: const Size(32, 32),
-                                backgroundColor: Colors.red.withOpacity(0.7),
+                                backgroundColor: Colors.red.withAlpha(179),
                                 shape: const CircleBorder(),
                               ),
                             ),
@@ -215,7 +218,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                               decoration: BoxDecoration(
                                 color: isSelectedId
                                     ? AppColors.primaryColor
-                                    : Colors.black.withOpacity(0.3),
+                                    : Colors.black.withAlpha(77),
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color: Colors.white,
@@ -258,7 +261,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                               style: IconButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 minimumSize: const Size(32, 32),
-                                backgroundColor: Colors.black.withOpacity(0.3),
+                                backgroundColor: Colors.black.withAlpha(77),
                                 shape: const CircleBorder(),
                               ),
                             ),
@@ -271,7 +274,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                       text: product.name,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textColor,
+                      color: theme.textTheme.bodyLarge?.color,
                     ),
                     CustomText(
                       text: product.description,
@@ -279,7 +282,7 @@ class _CustomGridViewState extends State<CustomGridView> {
                       overflow: TextOverflow.ellipsis,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.textColor.withOpacity(0.7),
+                      color: theme.textTheme.bodyMedium?.color?.withAlpha(179),
                     ),
                     const SizedBox(height: 4),
                     Row(
@@ -290,20 +293,20 @@ class _CustomGridViewState extends State<CustomGridView> {
                             text: '\$${product.price.toStringAsFixed(2)}',
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.primaryColor,
+                            color: theme.colorScheme.primary,
                           ),
                         ),
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
                             Icons.add,
-                            color: AppColors.backgroundColor,
+                            color: theme.colorScheme.onPrimary,
                             size: 18,
                           ),
                           style: IconButton.styleFrom(
                             padding: EdgeInsets.zero,
                             minimumSize: const Size(25, 25),
-                            backgroundColor: AppColors.textColor,
+                            backgroundColor: theme.colorScheme.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),

@@ -17,8 +17,12 @@ class OfferBannerModel {
     const baseUrl = 'https://accessories-eshop.runasp.net';
 
     String getFullUrl(String? url) {
-      if (url == null || url.isEmpty) return '';
-      if (url.startsWith('http')) return url;
+      if (url == null || url.isEmpty) {
+        return '';
+      }
+      if (url.startsWith('http')) {
+        return url;
+      }
       return '$baseUrl$url';
     }
 

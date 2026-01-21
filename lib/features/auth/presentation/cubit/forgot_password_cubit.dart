@@ -1,6 +1,6 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_project_nti/features/auth/presentation/cubit/services/auth_service.dart';
+import 'package:graduation_project_nti/core/network/api_error.dart';
+import 'package:graduation_project_nti/features/auth/data/repo/auth_repo.dart';
 import 'forgot_password_state.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
@@ -20,10 +20,14 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     emit(ForgotPasswordLoading());
 
     try {
-      await AuthService.forgotPassword(email);
+      await AuthRepo().forgotPassword(email);
       emit(ForgotPasswordSuccess());
     } catch (e) {
-      emit(ForgotPasswordError("Something went wrong"));
+      if (e is ApiError) {
+        emit(ForgotPasswordError(e.message));
+      } else {
+        emit(ForgotPasswordError("Something went wrong"));
+      }
     }
   }
 }

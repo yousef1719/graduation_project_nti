@@ -1,20 +1,13 @@
-import 'package:dio/dio.dart';
-import 'package:graduation_project_nti/core/network/api_error.dart';
-import 'package:graduation_project_nti/core/network/api_exception.dart';
+import 'package:graduation_project_nti/core/network/api_service.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 import 'package:graduation_project_nti/features/products/data/models/review_model.dart';
 
 class ProductRepo {
-  final Dio dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://accessories-eshop.runasp.net/api',
-      headers: {'Content-Type': 'application/json'},
-    ),
-  );
+  final ApiService _apiService = ApiService();
 
   Future<List<ProductModel>> getProducts({
     int page = 1,
-    int pageSize = 10,
+    int pageSize = 50,
     String? searchTerm,
     String? category,
     double? minPrice,
@@ -24,16 +17,13 @@ class ProductRepo {
     String? sortOrder,
   }) async {
     try {
-      final response = await dio.get(
-        '/products',
-        options: Options(
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'},
-        ),
-        data: {
+      final response = await _apiService.get(
+        'products',
+        queryParams: {
           "page": page,
           "pageSize": pageSize,
-          if (searchTerm != null && searchTerm.isNotEmpty) "searchTerm": searchTerm,
+          if (searchTerm != null && searchTerm.isNotEmpty)
+            "searchTerm": searchTerm,
           if (category != null) "category": category,
           if (minPrice != null) "minPrice": minPrice,
           if (maxPrice != null) "maxPrice": maxPrice,
@@ -43,7 +33,11 @@ class ProductRepo {
         },
       );
 
-      final List itemsRaw = response.data['items'] as List;
+      if (response is! Map<String, dynamic> || response['items'] == null) {
+        return [];
+      }
+
+      final List itemsRaw = response['items'] as List;
 
       // Deduplicate and filter invalid data
       final Set<String> seenIds = {};
@@ -51,18 +45,25 @@ class ProductRepo {
 
       for (var item in itemsRaw) {
         final product = ProductModel.fromJson(item);
-        // Ensure ID is unique and basic fields are present (e.g., name not empty)
-        if (product.id.isNotEmpty && !seenIds.contains(product.id) && product.name.isNotEmpty) {
+        if (product.id.isNotEmpty &&
+            !seenIds.contains(product.id) &&
+            product.name.isNotEmpty) {
           seenIds.add(product.id);
           products.add(product);
         }
       }
 
       return products;
-    } on DioException catch (e) {
-      throw ApiExceptions.handleError(e);
     } catch (e) {
-      throw ApiError(message: e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> addProduct(Map<String, dynamic> productData) async {
+    try {
+      await _apiService.post('products', productData);
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -72,24 +73,26 @@ class ProductRepo {
     int pageSize = 10,
   }) async {
     try {
-      final response = await dio.post(
-        '/reviews/$productId',
-        data: {"productId": productId, "page": page, "pageSize": pageSize},
-      );
-      final items = response.data['reviews']['items'] as List;
+      final response = await _apiService.post('reviews/$productId', {
+        "productId": productId,
+        "page": page,
+        "pageSize": pageSize,
+      });
+      if (response is! Map<String, dynamic> || response['reviews'] == null) {
+        return [];
+      }
+      final items = response['reviews']['items'] as List;
       return items.map((e) => ReviewModel.fromJson(e)).toList();
     } catch (e) {
-      throw ApiError(message: e.toString());
+      rethrow;
     }
   }
 
   Future<void> deleteProduct(String productId) async {
     try {
-      await dio.delete('/products/$productId');
-    } on DioException catch (e) {
-      throw ApiExceptions.handleError(e);
+      await _apiService.delete('products/$productId', {});
     } catch (e) {
-      throw ApiError(message: e.toString());
+      rethrow;
     }
   }
 }

@@ -1,159 +1,148 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/utils/debounce.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project_nti/features/home/data/repo/category_repo.dart';
+import 'package:graduation_project_nti/features/home/data/repositories/offer_repository.dart';
+import 'package:graduation_project_nti/features/home/presentation/cubit/home_cubit.dart';
+import 'package:graduation_project_nti/features/home/presentation/cubit/home_state.dart';
 import 'package:graduation_project_nti/features/home/presentation/widgets/custom_grid_view.dart';
 import 'package:graduation_project_nti/features/home/presentation/widgets/home_banner_widget.dart';
 import 'package:graduation_project_nti/features/home/presentation/widgets/home_category_widget.dart';
 import 'package:graduation_project_nti/features/home/presentation/widgets/home_sliver_app_bar_widget.dart';
 import 'package:graduation_project_nti/features/home/presentation/widgets/popular_header_slivers.dart';
-import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 import 'package:graduation_project_nti/features/products/data/repo/product_repo.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final ProductRepo productRepo = ProductRepo();
-  late Future<List<ProductModel>> productsFuture;
-  final Debouncer _debouncer = Debouncer(milliseconds: 500);
-  String _currentQuery = '';
-  final GlobalKey<HomeSliverAppBarWidgetState> _searchBarKey = GlobalKey();
-  bool _isSearchingInternal = false;
-
-  @override
-  void initState() {
-    super.initState();
-    productsFuture = _fetchProducts();
-  }
-
-  Future<List<ProductModel>> _fetchProducts({String? searchTerm}) async {
-    try {
-      return await productRepo.getProducts(
-        page: 1,
-        pageSize: 50,
-        searchTerm: searchTerm,
-      );
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  void _onSearchChanged(String query) {
-    setState(() {
-      _currentQuery = query;
-    });
-    _debouncer.run(() {
-      setState(() {
-        productsFuture = _fetchProducts(searchTerm: query.isNotEmpty ? query : null);
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _debouncer.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: !_isSearchingInternal,
-      onPopInvoked: (didPop) {
-        if (!didPop && _isSearchingInternal) {
-          _searchBarKey.currentState?.closeSearch();
-        }
-      },
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-          _searchBarKey.currentState?.closeSearch();
-        },
-        child: Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          body: FutureBuilder<List<ProductModel>>(
-            future: productsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CupertinoActivityIndicator(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                );
+    final theme = Theme.of(context);
+    final GlobalKey<HomeSliverAppBarWidgetState> searchBarKey = GlobalKey();
+
+    return BlocProvider(
+      create: (context) => HomeCubit(
+        categoryRepo: CategoryRepo(),
+        productRepo: ProductRepo(),
+        offersRepository: OffersRepository(),
+      )..fetchHomeData(),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          bool isSearching = false;
+          if (state is HomeLoaded) {
+            isSearching = state.isSearching;
+          }
+
+          return PopScope(
+            canPop: !isSearching,
+            onPopInvokedWithResult: (didPop, result) {
+              if (!didPop && isSearching) {
+                searchBarKey.currentState?.closeSearch();
               }
-
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    'Error: ${snapshot.error}',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                );
-              }
-
-              final rawProducts = snapshot.data ?? [];
-              // Client-side substring filtering for partial matches
-              final products = (_currentQuery.isNotEmpty)
-                  ? rawProducts.where((p) {
-                      final query = _currentQuery.toLowerCase();
-                      return p.name.toLowerCase().contains(query) ||
-                          p.description.toLowerCase().contains(query);
-                    }).toList()
-                  : rawProducts;
-
-              return CustomScrollView(
-                slivers: [
-                  HomeSliverAppBarWidget(
-                    key: _searchBarKey,
-                    onSearchChanged: _onSearchChanged,
-                    onSearchToggled: (isSearching) {
-                      setState(() {
-                        _isSearchingInternal = isSearching;
-                      });
-                    },
-                  ),
-                  if (products.isEmpty)
-                    const SliverFillRemaining(
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              CupertinoIcons.search,
-                              size: 60,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'No products found',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  else ...[
-                    const SliverToBoxAdapter(child: HomeBannerWidget()),
-                    const SliverToBoxAdapter(child: SizedBox(height: 20)),
-                    const SliverToBoxAdapter(child: HomeCategoryWidget()),
-                    const SliverToBoxAdapter(child: SizedBox(height: 15)),
-                    const SliverToBoxAdapter(child: PopularHeaderSliver()),
-                    CustomGridView(products: products),
-                  ],
-                ],
-              );
             },
-          ),
-        ),
+            child: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+                searchBarKey.currentState?.closeSearch();
+              },
+              child: Scaffold(
+                backgroundColor: theme.scaffoldBackgroundColor,
+                body: _buildBody(context, state, searchBarKey),
+              ),
+            ),
+          );
+        },
       ),
     );
+  }
+
+  Widget _buildBody(
+    BuildContext context,
+    HomeState state,
+    GlobalKey<HomeSliverAppBarWidgetState> searchBarKey,
+  ) {
+    if (state is HomeLoading) {
+      return Center(
+        child: CupertinoActivityIndicator(
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      );
+    }
+
+    if (state is HomeError) {
+      return Center(
+        child: Text(
+          'Error: ${state.message}',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      );
+    }
+
+    if (state is HomeLoaded) {
+      final theme = Theme.of(context);
+
+      // Filter products
+      var products = state.products;
+
+      // 1. Filter by category
+      if (state.selectedCategoryId != null) {
+        products = products
+            .where((p) => p.categories.contains(state.selectedCategoryId))
+            .toList();
+      }
+
+      // 2. Filter by search query
+      if (state.searchQuery.isNotEmpty) {
+        final query = state.searchQuery.toLowerCase();
+        products = products.where((p) {
+          return p.name.toLowerCase().contains(query) ||
+              p.description.toLowerCase().contains(query);
+        }).toList();
+      }
+
+      return CustomScrollView(
+        slivers: [
+          HomeSliverAppBarWidget(
+            key: searchBarKey,
+            onSearchChanged: (query) =>
+                context.read<HomeCubit>().updateSearchQuery(query),
+            onSearchToggled: (isSearching) =>
+                context.read<HomeCubit>().toggleSearch(isSearching),
+          ),
+          if (products.isEmpty)
+            SliverFillRemaining(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      CupertinoIcons.search,
+                      size: 60,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'No products found',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: theme.colorScheme.onSurface.withAlpha(153),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          else ...[
+            const SliverToBoxAdapter(child: HomeBannerWidget()),
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+            const SliverToBoxAdapter(child: HomeCategoryWidget()),
+            const SliverToBoxAdapter(child: SizedBox(height: 15)),
+            const SliverToBoxAdapter(child: PopularHeaderSliver()),
+            CustomGridView(products: products),
+          ],
+        ],
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 }

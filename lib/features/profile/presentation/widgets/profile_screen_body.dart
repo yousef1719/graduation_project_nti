@@ -127,16 +127,16 @@ class ProfileScreenBody extends StatelessWidget {
                     builder: (context) => PrivacyPolicyScreen(),
                   ),
                 );
-                SettingsItemModel(
-                  icon: CupertinoIcons.question_circle,
-                  title: "Help Center",
-                  subtitle: "",
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HelpScreen()),
-                    );
-                  },
+              },
+            ),
+            SettingsItemModel(
+              icon: CupertinoIcons.question_circle,
+              title: "Help Center",
+              subtitle: "",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HelpScreen()),
                 );
               },
             ),

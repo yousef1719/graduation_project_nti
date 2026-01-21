@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
@@ -44,14 +42,14 @@ class CustomHeaderWithImage extends StatelessWidget {
                 right: 10,
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(CupertinoIcons.heart),
+                  icon: const Icon(CupertinoIcons.heart),
                   style: IconButton.styleFrom(
                     iconSize: 20,
                     padding: EdgeInsets.zero,
                     minimumSize: const Size(30, 30),
-                    backgroundColor: Colors.grey.withOpacity(0.3),
+                    backgroundColor: Colors.grey.withAlpha(77),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(25),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                   ),
                 ),
@@ -61,14 +59,14 @@ class CustomHeaderWithImage extends StatelessWidget {
                 right: 55,
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(CupertinoIcons.cart),
+                  icon: const Icon(CupertinoIcons.cart),
                   style: IconButton.styleFrom(
                     iconSize: 20,
                     padding: EdgeInsets.zero,
                     minimumSize: const Size(30, 30),
-                    backgroundColor: Colors.grey.withOpacity(0.3),
+                    backgroundColor: Colors.grey.withAlpha(77),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(25),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                   ),
                 ),
@@ -90,7 +88,7 @@ class CustomHeaderWithImage extends StatelessWidget {
                     minimumSize: const Size(30, 30),
                     backgroundColor: Theme.of(
                       context,
-                    ).cardColor.withValues(alpha: 0.8),
+                    ).cardColor.withAlpha(204), // 0.8 * 255 = 204
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),
@@ -112,7 +110,7 @@ class CustomHeaderWithImage extends StatelessWidget {
                       BoxShadow(
                         color: Theme.of(
                           context,
-                        ).shadowColor.withValues(alpha: 0.2),
+                        ).shadowColor.withAlpha(51), // 0.2 * 255 = 51
                         blurRadius: 20,
                         offset: const Offset(0, -10),
                       ),

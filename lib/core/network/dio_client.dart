@@ -4,7 +4,7 @@ import 'package:graduation_project_nti/core/helpers/pref_helper.dart';
 class DioClient {
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: 'https://accessories-eshop.runasp.net/api',
+      baseUrl: 'https://accessories-eshop.runasp.net/api/',
       headers: {'Content-Type': 'application/json'},
     ),
   );
