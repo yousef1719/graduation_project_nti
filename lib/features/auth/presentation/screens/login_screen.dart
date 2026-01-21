@@ -11,6 +11,7 @@ import 'package:graduation_project_nti/core/shared_widgets/custom_snack_bar.dart
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/auth/data/repo/auth_repo.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/Create_password_Screen.dart';
+import 'package:graduation_project_nti/features/auth/presentation/screens/forget_password_screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:graduation_project_nti/root.dart';
 import 'register_screen.dart';
@@ -143,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CreatePasswordScreen(),
+                              builder: (context) => ForgotPasswordScreen(),
                             ),
                           );
                         },
