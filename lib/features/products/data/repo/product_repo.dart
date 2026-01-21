@@ -30,11 +30,35 @@ class ProductRepo {
           method: 'GET',
           headers: {'Content-Type': 'application/json'},
         ),
-        data: {"page": page, "pageSize": pageSize},
+        data: {
+          "page": page,
+          "pageSize": pageSize,
+          if (searchTerm != null && searchTerm.isNotEmpty) "searchTerm": searchTerm,
+          if (category != null) "category": category,
+          if (minPrice != null) "minPrice": minPrice,
+          if (maxPrice != null) "maxPrice": maxPrice,
+          if (isInStock != null) "isInStock": isInStock,
+          if (sortBy != null) "sortBy": sortBy,
+          if (sortOrder != null) "sortOrder": sortOrder,
+        },
       );
 
-      final items = response.data['items'] as List;
-      return items.map((e) => ProductModel.fromJson(e)).toList();
+      final List itemsRaw = response.data['items'] as List;
+
+      // Deduplicate and filter invalid data
+      final Set<String> seenIds = {};
+      final List<ProductModel> products = [];
+
+      for (var item in itemsRaw) {
+        final product = ProductModel.fromJson(item);
+        // Ensure ID is unique and basic fields are present (e.g., name not empty)
+        if (product.id.isNotEmpty && !seenIds.contains(product.id) && product.name.isNotEmpty) {
+          seenIds.add(product.id);
+          products.add(product);
+        }
+      }
+
+      return products;
     } on DioException catch (e) {
       throw ApiExceptions.handleError(e);
     } catch (e) {
@@ -54,6 +78,16 @@ class ProductRepo {
       );
       final items = response.data['reviews']['items'] as List;
       return items.map((e) => ReviewModel.fromJson(e)).toList();
+    } catch (e) {
+      throw ApiError(message: e.toString());
+    }
+  }
+
+  Future<void> deleteProduct(String productId) async {
+    try {
+      await dio.delete('/products/$productId');
+    } on DioException catch (e) {
+      throw ApiExceptions.handleError(e);
     } catch (e) {
       throw ApiError(message: e.toString());
     }
