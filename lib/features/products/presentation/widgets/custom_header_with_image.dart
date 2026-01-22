@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project_nti/features/cart/presentation/screens/cart_screen.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 
 class CustomHeaderWithImage extends StatelessWidget {
@@ -58,7 +59,14 @@ class CustomHeaderWithImage extends StatelessWidget {
                 top: 28,
                 right: 55,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CartScreen(),
+                      ),
+                    );
+                  },
                   icon: const Icon(CupertinoIcons.cart),
                   style: IconButton.styleFrom(
                     iconSize: 20,
