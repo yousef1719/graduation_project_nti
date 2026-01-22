@@ -8,6 +8,7 @@ import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_butto
 import 'package:graduation_project_nti/core/shared_widgets/custom_snack_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/login_screen.dart';
+import 'package:graduation_project_nti/features/auth/presentation/screens/privacy_screen.dart';
 import 'package:graduation_project_nti/features/profile/data/models/settings_item_model.dart';
 import 'package:graduation_project_nti/features/profile/data/repo/profile_repo.dart';
 import 'package:graduation_project_nti/features/profile/presentation/screens/about_us.dart';
@@ -119,6 +120,14 @@ class ProfileScreenBody extends StatelessWidget {
               icon: CupertinoIcons.doc,
               title: "Privacy Policy",
               subtitle: "",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PrivacyPolicyScreen(),
+                  ),
+                );
+              },
             ),
             SettingsItemModel(
               icon: CupertinoIcons.question_circle,

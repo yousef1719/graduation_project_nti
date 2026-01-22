@@ -1,0 +1,13 @@
+﻿Analyzing auth...                                               
+
+   info - The file name 'Create_password_Screen.dart' isn't a lower_case_with_underscores identifier - lib\features\auth\presentation\screens\Create_password_Screen.dart:1:1 - file_names
+  error - Target of URI doesn't exist: 'package:graduation_project_nti/features/auth/presentation/widgets/custom_snack_bar.dart' - lib\features\auth\presentation\screens\Create_password_Screen.dart:14:8 - uri_does_not_exist
+  error - Undefined name 'CustomSnackBar' - lib\features\auth\presentation\screens\Create_password_Screen.dart:49:15 - undefined_identifier
+  error - Undefined name 'CustomSnackBar' - lib\features\auth\presentation\screens\Create_password_Screen.dart:63:15 - undefined_identifier
+warning - Unused import: 'package:graduation_project_nti/features/auth/presentation/screens/Create_password_Screen.dart' - lib\features\auth\presentation\screens\forget_password_screen.dart:6:8 - unused_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\forget_password_screen.dart:81:58 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\privacy_screen.dart:93:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\privacy_screen.dart:125:53 - deprecated_member_use
+warning - Unused import: 'package:graduation_project_nti/core/network/api_error.dart' - lib\features\auth\presentation\screens\register_screen.dart:8:8 - unused_import
+  error - The method 'CreatePasswordScreen' isn't defined for the type '_VerificationScreenState' - lib\features\auth\presentation\screens\verification_screen.dart:97:37 - undefined_method
+

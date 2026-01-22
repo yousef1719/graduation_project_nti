@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:graduation_project_nti/core/network/api_exception.dart';
 import 'package:graduation_project_nti/core/network/dio_client.dart';
+import 'dart:convert';
 
 class ApiService {
   final DioClient _dioClient = DioClient();
@@ -16,15 +18,24 @@ class ApiService {
       final response = await _dioClient.dio.get(
         endpoint,
         queryParameters: queryParams,
+        data: {}, // Add empty body to satisfy server
         options: Options(
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
+          responseType: ResponseType
+              .plain, // Get as plain text to handle non-JSON responses
         ),
       );
 
-      return response.data;
+      // Try to parse as JSON
+      try {
+        return jsonDecode(response.data);
+      } catch (e) {
+        // If not JSON, return the raw data
+        return response.data;
+      }
     } on DioException catch (e) {
       throw ApiExceptions.handleError(e);
     }

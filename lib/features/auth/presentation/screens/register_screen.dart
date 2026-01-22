@@ -2,17 +2,21 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_project_nti/core/constants/app_images.dart';
 import 'package:graduation_project_nti/core/helpers/validators.dart';
-import 'package:graduation_project_nti/core/network/api_error.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_outlined_button.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_snack_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/auth/data/repo/auth_repo.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/login_screen.dart';
+import 'package:graduation_project_nti/features/auth/presentation/screens/privacy_screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/verification_screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';
+
+import 'package:graduation_project_nti/features/auth/presentation/cubit/register_cubit.dart';
+import 'package:graduation_project_nti/features/auth/presentation/cubit/register_state.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -22,9 +26,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool isActive = false;
-  bool? isCheckBoxActive = false;
-  bool isLoading = false;
+  bool obscurePassword = true;
+  bool isTermsAccepted = false;
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -32,256 +35,264 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  AuthRepo authRepo = AuthRepo();
-
-  Future<void> signup() async {
-    if (!formKey.currentState!.validate()) return;
-    if (isCheckBoxActive != true) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        CustomSnackBar.show(
-          message: 'Please accept terms and conditions',
-          backgroundColor: Colors.orange,
-        ),
-      );
-      return;
-    }
-    setState(() => isLoading = true);
-    try {
-      final success = await authRepo.signup(
-        firstNameController.text.trim(),
-        lastNameController.text.trim(),
-        emailController.text.trim(),
-        passwordController.text.trim(),
-      );
-      if (success) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) =>
-                VerificationScreen(email: emailController.text.trim()),
-          ),
-        );
-      }
-    } catch (e) {
-      setState(() => isLoading = false);
-      if (e is ApiError) {
-        if (e.message.contains('Email is already in use')) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            CustomSnackBar.show(
-              message: 'This email is already registered. Please login.',
-              backgroundColor: Colors.orange.shade700,
-            ),
-          );
-          Future.delayed(const Duration(seconds: 2), () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => LoginScreen()),
-              (route) => false, // يمسح كل الصفحات القديمة من الـ stack
-            );
-          });
-          return;
-        }
-        ScaffoldMessenger.of(context).showSnackBar(
-          CustomSnackBar.show(
-            message: e.message,
-            backgroundColor: Colors.red.shade800,
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          CustomSnackBar.show(
-            message: 'Unknown error occurred',
-            backgroundColor: Colors.red.shade800,
-          ),
-        );
-      }
-    }
-  }
-
   @override
   void dispose() {
-    super.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: PopScope(
-        canPop: false,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: SafeArea(
-            child: Form(
-              key: formKey,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 30),
-                    CustomText(
-                      text: 'Create Account',
-                      fontSize: 32,
-                      color: Theme.of(context).textTheme.bodyLarge?.color,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    CustomText(
-                      text: 'Sign up to discover exclusive accessories.',
-                      fontSize: 14,
-                      color: Theme.of(context).textTheme.bodySmall?.color,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    SizedBox(height: 30),
-                    CustomTextField(
-                      labelText: "First Name",
-                      hintText: "Enter your first name",
-                      validator: (pass) {
-                        return Validator.validateUserName(pass!);
-                      },
-                      controller: firstNameController,
-                    ),
-                    SizedBox(height: 10),
-                    CustomTextField(
-                      labelText: "Last Name",
-                      hintText: "Enter your last name",
-                      validator: (pass) {
-                        return Validator.validateUserName(pass!);
-                      },
-                      controller: lastNameController,
-                    ),
-                    SizedBox(height: 10),
-                    CustomTextField(
-                      labelText: "Email Address",
-                      hintText: "name@example.com",
-                      validator: (pass) {
-                        return Validator.validateEmail(pass!);
-                      },
-                      controller: emailController,
-                    ),
-                    SizedBox(height: 10),
-                    CustomTextField(
-                      labelText: "Password",
-                      hintText: "Create a password",
-                      obscureText: !isActive,
-                      validator: (pass) {
-                        return Validator.validatePassword(pass!);
-                      },
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isActive = !isActive;
-                          });
-                        },
-                        icon: Icon(
-                          isActive
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                        ),
-                        color: isActive
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).textTheme.bodySmall?.color,
-                        iconSize: 20,
-                      ),
-                      controller: passwordController,
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                          value: isCheckBoxActive,
-                          checkColor: Colors.white,
-                          activeColor: Theme.of(context).colorScheme.primary,
-                          onChanged: (newValue) {
-                            setState(() {
-                              isCheckBoxActive = newValue;
-                            });
-                          },
-                        ),
-                        Expanded(
-                          child: CustomText(
-                            text:
-                                'I agree to the Terms & Conditions and Privacy Policy.',
-                            fontSize: 12,
-                            color: Theme.of(context).textTheme.bodySmall?.color,
+    final theme = Theme.of(context);
+
+    return BlocProvider(
+      create: (context) => RegisterCubit(AuthRepo()),
+      child: BlocConsumer<RegisterCubit, RegisterState>(
+        listener: (context, state) {
+          if (state is RegisterSuccess) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackBar.show(
+                message: 'Account created successfully 🎉',
+                backgroundColor: Colors.green.shade700,
+              ),
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => VerificationScreen(email: emailController.text.trim()),
+              ),
+            );
+          }
+
+          if (state is RegisterError) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            if (state.message.contains('email is already in use') || state.message.contains('registered')) {
+               ScaffoldMessenger.of(context).showSnackBar(
+                CustomSnackBar.show(
+                  message: 'This email is already registered. Please login.',
+                  backgroundColor: Colors.orange.shade700,
+                ),
+              );
+              Future.delayed(const Duration(seconds: 2), () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  (route) => false,
+                );
+              });
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                CustomSnackBar.show(
+                  message: state.message,
+                  backgroundColor: theme.colorScheme.error,
+                ),
+              );
+            }
+          }
+        },
+        builder: (context, state) {
+          final isLoading = state is RegisterLoading;
+
+          return Scaffold(
+            backgroundColor: theme.scaffoldBackgroundColor,
+            body: PopScope(
+              canPop: false,
+              child: GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: SafeArea(
+                  child: Form(
+                    key: formKey,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 30),
+                          CustomText(
+                            text: 'Create Account',
+                            fontSize: 32,
+                            color: theme.colorScheme.onSurface,
+                            fontWeight: FontWeight.w500,
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    isLoading
-                        ? Center(child: const CupertinoActivityIndicator())
-                        : CustomElevatedButton(
-                            onPressed: signup,
-                            text: 'Register',
-                          ),
-                    SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(child: Divider(thickness: 1)),
-                        CustomText(
-                          text: '   Or sign up with   ',
-                          fontSize: 14,
-                          color: Theme.of(context).textTheme.bodySmall?.color,
-                        ),
-                        Expanded(child: Divider(thickness: 1)),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomOutlinedButton(
-                            text: 'Google',
-                            image: AppImages.googleLogo,
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: CustomOutlinedButton(
-                            text: 'Facebook',
-                            image: AppImages.facbookLogo,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomText(
-                          text: 'Already have an account?',
-                          fontSize: 14,
-                          color: Theme.of(context).textTheme.bodySmall?.color,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(builder: (_) => LoginScreen()),
-                              (route) => false,
-                            );
-                          },
-                          child: CustomText(
-                            text: 'Login',
+                          CustomText(
+                            text: 'Sign up to discover exclusive accessories.',
                             fontSize: 14,
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.w700,
+                            color: theme.textTheme.bodySmall?.color,
+                            fontWeight: FontWeight.w400,
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 30),
+                          CustomTextField(
+                            labelText: "First Name",
+                            hintText: "Enter your first name",
+                            validator: (val) => Validator.validateUserName(val!),
+                            controller: firstNameController,
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextField(
+                            labelText: "Last Name",
+                            hintText: "Enter your last name",
+                            validator: (val) => Validator.validateUserName(val!),
+                            controller: lastNameController,
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextField(
+                            labelText: "Email Address",
+                            hintText: "name@example.com",
+                            validator: (val) => Validator.validateEmail(val!),
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextField(
+                            labelText: "Password",
+                            hintText: "Create a password",
+                            obscureText: obscurePassword,
+                            validator: (val) => Validator.validatePassword(val!),
+                            controller: passwordController,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  obscurePassword = !obscurePassword;
+                                });
+                              },
+                              icon: Icon(
+                                obscurePassword
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                              ),
+                              color: !obscurePassword
+                                  ? theme.colorScheme.primary
+                                  : theme.textTheme.bodySmall?.color,
+                              iconSize: 20,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Checkbox(
+                                value: isTermsAccepted,
+                                checkColor: Colors.white,
+                                activeColor: theme.colorScheme.primary,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    isTermsAccepted = newValue ?? false;
+                                  });
+                                },
+                              ),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                     Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+                                    );
+                                  },
+                                  child: CustomText(
+                                    text: 'I agree to the Terms & Conditions and Privacy Policy.',
+                                    fontSize: 12,
+                                    color: theme.textTheme.bodySmall?.color,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          isLoading
+                              ? const Center(child: CupertinoActivityIndicator())
+                              : CustomElevatedButton(
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      if (!isTermsAccepted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          CustomSnackBar.show(
+                                            message: 'Please accept terms and conditions',
+                                            backgroundColor: Colors.orange,
+                                          ),
+                                        );
+                                        return;
+                                      }
+                                      context.read<RegisterCubit>().signup(
+                                            firstName: firstNameController.text.trim(),
+                                            lastName: lastNameController.text.trim(),
+                                            email: emailController.text.trim(),
+                                            password: passwordController.text.trim(),
+                                          );
+                                    }
+                                  },
+                                  text: 'Register',
+                                ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              const Expanded(child: Divider(thickness: 1)),
+                              CustomText(
+                                text: '   Or sign up with   ',
+                                fontSize: 14,
+                                color: theme.textTheme.bodySmall?.color,
+                              ),
+                              const Expanded(child: Divider(thickness: 1)),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CustomOutlinedButton(
+                                  text: 'Google',
+                                  image: AppImages.googleLogo,
+                                  onPressed: () {},
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: CustomOutlinedButton(
+                                  text: 'Facebook',
+                                  image: AppImages.facbookLogo,
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomText(
+                                text: 'Already have an account?',
+                                fontSize: 14,
+                                color: theme.textTheme.bodySmall?.color,
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                                    (route) => false,
+                                  );
+                                },
+                                child: CustomText(
+                                  text: 'Login',
+                                  fontSize: 14,
+                                  color: theme.colorScheme.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

@@ -1,4 +1,3 @@
-// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
@@ -11,10 +10,10 @@ class ProductMoreDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.3),
+        color: Theme.of(context).colorScheme.surface.withAlpha(76),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(

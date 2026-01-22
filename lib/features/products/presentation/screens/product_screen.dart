@@ -152,7 +152,7 @@ class _ProductScreenState extends State<ProductScreen> {
       dy: MediaQuery.of(context).size.height - 288,
       mainScreenWidget: PopScope(
         canPop: !_isSelectionMode,
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, result) {
           if (!didPop && _isSelectionMode) {
             setState(() {
               _isSelectionMode = false;

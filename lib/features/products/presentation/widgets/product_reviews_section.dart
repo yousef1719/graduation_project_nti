@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
@@ -46,7 +44,7 @@ class _ProductReviewsSectionState extends State<ProductReviewsSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -64,15 +62,15 @@ class _ProductReviewsSectionState extends State<ProductReviewsSection> {
             ),
           ],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: reviews
                     .map((review) => reviewCard(context, review))
                     .toList(),
               ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }
@@ -80,11 +78,11 @@ class _ProductReviewsSectionState extends State<ProductReviewsSection> {
 
 Widget reviewCard(BuildContext context, ReviewModel review) {
   return Container(
-    padding: EdgeInsets.all(17),
+    padding: const EdgeInsets.all(17),
     width: double.infinity,
-    margin: EdgeInsets.only(bottom: 12),
+    margin: const EdgeInsets.only(bottom: 12),
     decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.surface.withOpacity(0.3),
+      color: Theme.of(context).colorScheme.surface.withAlpha(76),
       borderRadius: BorderRadius.circular(8),
     ),
     child: Column(
