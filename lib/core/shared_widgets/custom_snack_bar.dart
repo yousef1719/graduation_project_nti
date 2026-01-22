@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class CustomSnackBar {
@@ -14,11 +13,7 @@ class CustomSnackBar {
       elevation: 10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: backgroundColor,
-      content: CustomText(
-        text: message,
-        fontSize: 14,
-        color: AppColors.backgroundColor,
-      ),
+      content: CustomText(text: message, fontSize: 14, color: Colors.white),
     );
   }
 }

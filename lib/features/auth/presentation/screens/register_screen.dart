@@ -1,10 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/constants/app_images.dart';
 import 'package:graduation_project_nti/core/helpers/validators.dart';
 import 'package:graduation_project_nti/core/network/api_error.dart';
@@ -12,7 +9,7 @@ import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_butto
 import 'package:graduation_project_nti/core/shared_widgets/custom_outlined_button.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_snack_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
-import 'package:graduation_project_nti/features/auth/data/auth_repo.dart';
+import 'package:graduation_project_nti/features/auth/data/repo/auth_repo.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/login_screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/screens/verification_screen.dart';
 import 'package:graduation_project_nti/features/auth/presentation/widgets/custom_text_form_field.dart';
@@ -113,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: PopScope(
         canPop: false,
         child: GestureDetector(
@@ -130,13 +127,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     CustomText(
                       text: 'Create Account',
                       fontSize: 32,
-                      color: AppColors.textColor,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                       fontWeight: FontWeight.w500,
                     ),
                     CustomText(
                       text: 'Sign up to discover exclusive accessories.',
                       fontSize: 14,
-                      color: AppColors.hintTextColor,
+                      color: Theme.of(context).textTheme.bodySmall?.color,
                       fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 30),
@@ -186,8 +183,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               : Icons.visibility_outlined,
                         ),
                         color: isActive
-                            ? AppColors.primaryColor
-                            : AppColors.hintTextColor,
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).textTheme.bodySmall?.color,
                         iconSize: 20,
                       ),
                       controller: passwordController,
@@ -199,7 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Checkbox(
                           value: isCheckBoxActive,
                           checkColor: Colors.white,
-                          activeColor: Color(0xffEC3713),
+                          activeColor: Theme.of(context).colorScheme.primary,
                           onChanged: (newValue) {
                             setState(() {
                               isCheckBoxActive = newValue;
@@ -211,7 +208,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             text:
                                 'I agree to the Terms & Conditions and Privacy Policy.',
                             fontSize: 12,
-                            color: AppColors.hintTextColor,
+                            color: Theme.of(context).textTheme.bodySmall?.color,
                           ),
                         ),
                       ],
@@ -230,7 +227,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomText(
                           text: '   Or sign up with   ',
                           fontSize: 14,
-                          color: AppColors.hintTextColor,
+                          color: Theme.of(context).textTheme.bodySmall?.color,
                         ),
                         Expanded(child: Divider(thickness: 1)),
                       ],
@@ -260,7 +257,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomText(
                           text: 'Already have an account?',
                           fontSize: 14,
-                          color: AppColors.hintTextColor,
+                          color: Theme.of(context).textTheme.bodySmall?.color,
                         ),
                         TextButton(
                           onPressed: () {
@@ -273,7 +270,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: CustomText(
                             text: 'Login',
                             fontSize: 14,
-                            color: AppColors.primaryColor,
+                            color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

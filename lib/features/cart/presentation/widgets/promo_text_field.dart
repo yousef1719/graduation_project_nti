@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 
 class PromoTextField extends StatelessWidget {
   const PromoTextField({super.key, required this.controller});
@@ -11,18 +10,22 @@ class PromoTextField extends StatelessWidget {
     return Container(
       height: 44,
       decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Theme.of(context).dividerColor, width: 1),
       ),
       child: TextFormField(
         controller: controller,
-        cursorColor: AppColors.primaryColor,
-        decoration: const InputDecoration(
+        cursorColor: Theme.of(context).colorScheme.primary,
+        style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+        decoration: InputDecoration(
           hintText: "Enter code",
-          hintStyle: TextStyle(color: Color(0xff9CA3AF)),
+          hintStyle: TextStyle(
+            color: Theme.of(context).textTheme.bodySmall?.color,
+          ),
           prefixIcon: Icon(
             Icons.local_offer_outlined,
-            color: Color(0xff9CA3AF),
+            color: Theme.of(context).textTheme.bodySmall?.color,
           ),
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(vertical: 12),

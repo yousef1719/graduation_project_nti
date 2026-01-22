@@ -8,23 +8,50 @@ class ApiService {
   /// CRUD METHODS
 
   /// GET
-  Future<dynamic> get(String endpoint) async {
+  Future<dynamic> get(
+    String endpoint, {
+    Map<String, dynamic>? queryParams,
+  }) async {
     try {
-      final response = await _dioClient.dio.get(endpoint);
+      final response = await _dioClient.dio.get(
+        endpoint,
+        queryParameters: queryParams,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
       return response.data;
     } on DioException catch (e) {
-      return ApiExceptions.handleError(e);
+      throw ApiExceptions.handleError(e);
     }
   }
 
   /// POST
 
-  Future<dynamic> post(String endpoint, dynamic body) async {
+  Future<dynamic> post(
+    String endpoint,
+    Map<String, dynamic> body, {
+    String? token,
+  }) async {
     try {
-      final response = await _dioClient.dio.post(endpoint, data: body);
+      final response = await _dioClient.dio.post(
+        endpoint,
+        data: body,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            if (token != null) 'Authorization': 'Bearer $token',
+          },
+        ),
+      );
       return response.data;
     } on DioException catch (e) {
-      return ApiExceptions.handleError(e);
+      throw ApiExceptions.handleError(e);
     }
   }
 
@@ -35,7 +62,7 @@ class ApiService {
       final response = await _dioClient.dio.put(endpoint, data: body);
       return response.data;
     } on DioException catch (e) {
-      return ApiExceptions.handleError(e);
+      throw ApiExceptions.handleError(e);
     }
   }
 
@@ -53,7 +80,7 @@ class ApiService {
       );
       return response.data;
     } on DioException catch (e) {
-      return ApiExceptions.handleError(e);
+      throw ApiExceptions.handleError(e);
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -33,34 +32,27 @@ class CustomTextField extends StatelessWidget {
         CustomText(
           text: labelText,
           fontSize: 14,
-          color: AppColors.textColor,
+          color: Theme.of(context).textTheme.bodyLarge?.color,
           fontWeight: FontWeight.w500,
         ),
         SizedBox(height: 4),
         TextFormField(
           controller: controller,
           validator: validator,
-          cursorColor: AppColors.primaryColor,
+          cursorColor: Theme.of(context).colorScheme.primary,
           keyboardType: keyboardType,
           maxLines: maxLines,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: obscureText ?? false,
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
-            hint: CustomText(
-              text: hintText,
-              fontSize: 12,
-              color: AppColors.hintTextColor,
-            ),
-
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.hintTextColor),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.primaryColor),
-            ),
+            hintText: hintText,
+            hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
+            border: Theme.of(context).inputDecorationTheme.border,
+            enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder,
+            focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+            filled: true,
+            fillColor: Theme.of(context).inputDecorationTheme.fillColor,
           ),
         ),
         // SizedBox(height: 5),

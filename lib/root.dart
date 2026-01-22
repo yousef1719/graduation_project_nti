@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/cupertino.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:graduation_project_nti/features/cart/presentation/screens/cart_screen.dart';
 import 'package:graduation_project_nti/features/home/presentation/screens/home_screen.dart';
 import 'package:graduation_project_nti/features/products/presentation/screens/product_screen.dart';
@@ -21,7 +21,7 @@ class _RootState extends State<Root> {
     HomeScreen(),
     ProductScreen(),
     CartScreen(),
-    HomeScreen(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -39,16 +39,19 @@ class _RootState extends State<Root> {
       ],
       horizontalPadding: 10,
       bubbleWidth: 90,
-      backgroundColor: AppColors.backgroundColor.withOpacity(0.8),
-      itemColor: AppColors.textColor,
-      bubbleColor: AppColors.backgroundColor,
-      blurStrength: 5,
+      backgroundColor: Theme.of(
+        context,
+      ).scaffoldBackgroundColor.withOpacity(0.8),
+      itemColor: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black,
+      bubbleColor: Theme.of(context).scaffoldBackgroundColor,
+      blurStrength: 4,
       showBubble: true,
       enableDragging: true,
       borderRadius: 30,
       elevation: 5,
       iconSize: 20,
       fontSize: 12,
+      animationDuration: 100,
     );
   }
 }

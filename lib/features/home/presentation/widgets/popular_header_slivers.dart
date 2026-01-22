@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class PopularHeaderSliver extends StatelessWidget {
@@ -15,17 +14,20 @@ class PopularHeaderSliver extends StatelessWidget {
             text: 'Popular Now',
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: AppColors.textColor,
+            color: Theme.of(context).textTheme.titleLarge?.color,
           ),
           const Spacer(),
           CustomText(
             text: 'Filter',
             fontSize: 12,
             fontWeight: FontWeight.bold,
-            color: AppColors.hintTextColor,
+            color: Theme.of(context).textTheme.bodySmall?.color,
           ),
           const SizedBox(width: 4),
-          Icon(Icons.filter_list, color: AppColors.hintTextColor),
+          Icon(
+            Icons.filter_list,
+            color: Theme.of(context).textTheme.bodySmall?.color,
+          ),
         ],
       ),
     );

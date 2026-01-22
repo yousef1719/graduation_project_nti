@@ -1,10 +1,12 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
+import 'package:graduation_project_nti/features/products/data/models/product_model.dart';
 
 class ProductMoreDetails extends StatelessWidget {
-  const ProductMoreDetails({super.key});
+  final ProductModel product;
+
+  const ProductMoreDetails({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,7 @@ class ProductMoreDetails extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 4),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColors.hintTextColor.withOpacity(0.05),
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.3),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -22,34 +24,34 @@ class ProductMoreDetails extends StatelessWidget {
               Expanded(
                 child: ListTile(
                   title: CustomText(
-                    text: 'Material',
+                    text: 'Color',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.hintTextColor,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
                   ),
                   subtitle: CustomText(
-                    text: 'Genuine Leather',
+                    text: product.color,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textColor,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
               ),
               Expanded(
                 child: ListTile(
                   title: CustomText(
-                    text: 'Style',
+                    text: 'Stock',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.hintTextColor,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
                   ),
                   subtitle: CustomText(
-                    text: 'Casual / Chic',
+                    text: '${product.stock} items',
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textColor,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
               ),
@@ -63,29 +65,29 @@ class ProductMoreDetails extends StatelessWidget {
                     text: 'Weight',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.hintTextColor,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
                   ),
                   subtitle: CustomText(
-                    text: '0.45 kg',
+                    text: '${product.weight} kg',
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textColor,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
               ),
               Expanded(
                 child: ListTile(
                   title: CustomText(
-                    text: 'Warranty',
+                    text: 'Code',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.hintTextColor,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
                   ),
                   subtitle: CustomText(
-                    text: '2 years',
+                    text: product.productCode,
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.textColor,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
               ),

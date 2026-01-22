@@ -3,13 +3,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_app_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_snack_bar.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
-import 'package:graduation_project_nti/features/auth/data/auth_repo.dart';
-import 'package:graduation_project_nti/features/auth/data/verification_model.dart';
+import 'package:graduation_project_nti/features/auth/data/repo/auth_repo.dart';
+import 'package:graduation_project_nti/features/auth/data/models/verification_model.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -104,8 +103,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
             backgroundColor: Colors.green.shade700,
           ),
         );
-
-        // TODO: Navigate to next screen
       } else {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -157,7 +154,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: CustomAppBar(),
@@ -184,7 +181,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     ),
                     icon: Icon(
                       isActive ? Icons.lock_open : Icons.lock,
-                      color: AppColors.primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                       size: 35,
                     ),
                   ),
@@ -193,7 +190,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     text: 'Verification',
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textColor,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -203,7 +200,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         text: 'We sent a code to',
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.hintTextColor,
+                        color: Theme.of(context).textTheme.bodySmall?.color,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(width: 5),
@@ -212,7 +209,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         fontSize: 16,
                         overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.textColor,
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
                       ),
                     ],
                   ),
@@ -224,7 +221,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     controller: pinTextController,
                     keyboardType: TextInputType.number,
                     textStyle: TextStyle(
-                      color: AppColors.primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                     ),
@@ -233,12 +230,22 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       borderRadius: BorderRadius.circular(10),
                       fieldHeight: 56,
                       fieldWidth: 45,
-                      inactiveColor: AppColors.hintTextColor.withOpacity(0.3),
-                      selectedColor: AppColors.primaryColor,
-                      activeColor: AppColors.primaryColor,
-                      activeFillColor: AppColors.backgroundColor,
-                      selectedFillColor: AppColors.backgroundColor,
-                      inactiveFillColor: AppColors.backgroundColor,
+                      inactiveColor:
+                          Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.color?.withOpacity(0.3) ??
+                          Colors.grey.withOpacity(0.3),
+                      selectedColor: Theme.of(context).colorScheme.primary,
+                      activeColor: Theme.of(context).colorScheme.primary,
+                      activeFillColor: Theme.of(
+                        context,
+                      ).scaffoldBackgroundColor,
+                      selectedFillColor: Theme.of(
+                        context,
+                      ).scaffoldBackgroundColor,
+                      inactiveFillColor: Theme.of(
+                        context,
+                      ).scaffoldBackgroundColor,
                     ),
                     enableActiveFill: true,
                     onChanged: (value) {},
@@ -253,7 +260,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       CustomText(
                         text: "Didn't receive the code?",
                         fontSize: 14,
-                        color: AppColors.hintTextColor,
+                        color: Theme.of(context).textTheme.bodySmall?.color,
                         fontWeight: FontWeight.w400,
                       ),
                       SizedBox(width: 6),
@@ -266,8 +273,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: resendSeconds == 0
-                              ? AppColors.primaryColor
-                              : AppColors.hintTextColor,
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).textTheme.bodySmall?.color,
                         ),
                       ),
                     ],

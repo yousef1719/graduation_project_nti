@@ -1,5 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_text.dart';
 
 class FilterProductsByCategory extends StatefulWidget {
@@ -27,7 +28,9 @@ class _FilterProductsByCategoryState extends State<FilterProductsByCategory> {
     return Container(
       width: double.infinity,
       height: 55,
-      decoration: BoxDecoration(color: Color(0xffF8F6F6)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.3),
+      ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
@@ -48,12 +51,12 @@ class _FilterProductsByCategoryState extends State<FilterProductsByCategory> {
                 ),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? AppColors.primaryColor
-                      : AppColors.backgroundColor,
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).scaffoldBackgroundColor,
                   border: Border.all(
                     color: isSelected
-                        ? AppColors.primaryColor
-                        : Colors.grey.shade400,
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).dividerColor,
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(8),
@@ -64,8 +67,8 @@ class _FilterProductsByCategoryState extends State<FilterProductsByCategory> {
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: isSelected
-                        ? AppColors.backgroundColor
-                        : AppColors.textColor,
+                        ? Colors.white
+                        : Theme.of(context).textTheme.bodyLarge?.color,
                   ),
                 ),
               ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project_nti/core/constants/app_colors.dart';
 import 'package:graduation_project_nti/features/products/presentation/screens/add_new_product.dart';
 
 class CustomFloatingAddButton extends StatelessWidget {
@@ -10,7 +9,7 @@ class CustomFloatingAddButton extends StatelessWidget {
     return Material(
       elevation: 20,
       shape: const CircleBorder(),
-      color: AppColors.primaryColor,
+      color: Theme.of(context).colorScheme.primary,
       child: InkWell(
         customBorder: const CircleBorder(),
         onTap: () {
