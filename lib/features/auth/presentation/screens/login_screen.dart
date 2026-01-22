@@ -3,11 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-<<<<<<< HEAD
-import 'package:shared_preferences/shared_preferences.dart'; // 👈 مهم
-=======
->>>>>>> fafad452ddd198122380b775863fc85ab9ba0f05
 import 'package:graduation_project_nti/core/constants/app_images.dart';
 import 'package:graduation_project_nti/core/helpers/validators.dart';
 import 'package:graduation_project_nti/core/shared_widgets/custom_elevated_button.dart';
